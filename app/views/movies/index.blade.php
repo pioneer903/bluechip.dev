@@ -1,0 +1,1 @@
+{{ HTML::link_to_route('new_movie', 'Create a new movie')}}

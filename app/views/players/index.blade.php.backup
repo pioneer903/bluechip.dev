@@ -1,0 +1,100 @@
+@extends('layouts.master')
+@section('nav')
+    
+@endsection
+
+@section('content')
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            /* Initialize the Data Table */
+            dTable = $('#dataTables_players').dataTable();
+        } );
+        
+        $(document).ready(function(){
+          $('.paid').click(function(){
+            var checked=0;
+            if($(this).is(':checked')){
+              checked=1;
+            }
+            var data={ 
+              id: $(this).attr('data-id'),
+              checked: checked
+            }
+            $.ajax({
+              
+              type: "POST",
+              data: data,
+              url: "{{URL::to('ajax')}}",
+              success:function(data){
+                
+              }
+            })
+          })
+        })
+        
+        $(document).on('submit', '.delete-form', function(){
+            return confirm('Are you sure you want to delete this player?');
+            
+        });
+    </script>
+    <div class="content">
+        <div>
+            <table id="dataTables_players"  class="display " cellspacing="0"  >
+                
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" title="Select All"/> </th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>Grad Year</th>
+                        <th>Season</th>
+                        <th>Birth Date</th>
+                        <th>Paid in Full</th>
+                        <th>View</th>
+                        <th>Edit</th>
+                      <!--   <th>Delete</th> -->
+                        <th>Delete</th>
+                     </tr>
+                </thead>
+                <tbody>
+                    @foreach($seasons as $season)
+                    <?php  $player = $season->players()->get();
+                        $grad_year= $season->grad_year;
+                        $season_name = $season->season;
+                    ?>
+                            @foreach($player as $u)
+                            <tr>
+                                <td><input type="checkbox" title="Select Player"/></td>
+                                <td>{{ $u->first_name }} </td>
+                                <td>{{ $u->last_name }} </td>
+                                <td>{{ $u->phone }} </td>
+                                <td><a href="mailto:{{ $u->email }}?Subject=Contact%20from%20Blue%20Chip" target="_top">{{ $u->email }} </a></td>
+                                <td>{{ $grad_year }} </td>
+                                <td>{{ $season_name }} </td>
+                                <td>{{ $u->birth_date }} </td>
+                                <td> {{Form::checkbox('paid',null,$u->paid,array('class'=>'paid','data-id'=>$u->id))}} </td>
+                                <td>{{ link_to_route('players.show', 'View', array($u->id), array('class' => 'btn btn-info'))}} </td>
+                                <td>{{ link_to_route('players.edit', 'Edit', array($u->id), array('class' => 'btn btn-info')) }}</td>
+                                <!-- <td>{{ Form::open(array('method' =>'DELETE', 'route' => array('players.destroy', $u->id))) }}
+                                    {{ Form::submit('Delete', array('class' => 'btn btn-danger', 'onclick'=>'confirm("confirm delete")')) }} 
+                                    {{ Form::close() }}</td> -->
+                                <td>{{Form::delete('players/'. $u->id, 'Delete', array('class' => 'btn-delete delete-form'))}}</td> 
+                            </tr>
+                            @endforeach
+                    @endforeach
+                </tbody>
+            </table>
+        </div>                          
+   </div>
+@stop
+
+@section('footer')
+
+    <footer>
+        <hr>
+        Copyright
+    </footer>
+@stop

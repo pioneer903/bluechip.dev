@@ -1,0 +1,67 @@
+@import url(//fonts.googleapis.com/css?family=Lato:700);
+body.bg-3{background-attachment:fixed;}
+/*nav ul li{float:left; display:inline;}*/
+.content, .nav{width:90%; margin: auto}
+.content{margin-top: 50px}
+.nav a {font-size: 1.3em; color: white}
+.nav a:hover{color: #333}
+/*.email{color:white; text-decoration: underline;}
+.email:hover{color: #333}*/
+.user{padding: 10px 15px; font-size: 1.3em; color: white}
+
+.alert{width: 50%; margin:20px auto;}
+
+.btn-delete input[type="submit"]{color: #fff;
+  background-color: #d9534f;
+  border-color: #d43f3a;
+ display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;}
+.btn-delete input[type="submit"]:hover{
+	color: #fff;
+  background-color: #d2322d;
+  border-color: #ac2925;
+}
+.btn-primary{background-color: #000099; border-color: #000099;}
+.btn-primary:hover{background-color: #3333cc;border-color: #3333cc;}
+.tile-header .btn-delete{margin-top:  -10px;}
+
+legend{color: white}
+label{text-transform: capitalize;}
+span.white{color:white;}
+span.bold{font-weight: bold}
+span.capitalize{text-transform: capitalize;}
+.hidden{visibility: hidden;}
+
+tbody>tr>td, thead>tr>th{padding-left: 8px !important;}
+tr.row_selected{background-color: #3399FF !important}
+tr:hover { background-color: rgba(255, 255, 255, 0.2); !important; }
+/*#players_table{width:100%; margin-bottom: 50px;}*/
+
+.td{float: left;}
+.td:first-child{width:22%;}
+.td:nth-child(2){font-weight: bold}
+.tr{clear:both;}
+.printable{padding-bottom: 30px;}   
+
+@media print
+{
+  .non-printable { display: none; }
+  .printable { display: block; margin-top: -45px;  font-size: 12px;}
+  .printable h3{font-size: 15px; padding: 5px; margin:0px; font-weight: bold;}
+}
+

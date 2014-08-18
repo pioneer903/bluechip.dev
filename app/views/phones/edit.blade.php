@@ -1,0 +1,1 @@
+C:\wamp\www\l4\app/views/phones/edit.blade.php

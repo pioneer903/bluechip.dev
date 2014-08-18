@@ -1,0 +1,1 @@
+C:\wamp\www\l4\app/views/create_movies_tables/show.blade.php

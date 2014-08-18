@@ -1,0 +1,361 @@
+@extends('layouts.master')
+
+@section('content')
+    <!-- Wrap all page content here -->
+    <div id="wrap">
+
+      
+
+
+      <!-- Make page fluid -->
+      <div class="row">
+
+        <!-- Page content -->
+        <div id="content">
+          
+
+          <!-- content main container -->
+          <div class="main">
+
+
+
+
+            <!-- row -->
+            <div class="row">
+
+              <!-- col 12 -->
+              <div class="col-md-10 col-md-offset-1">
+
+
+
+                <!-- tile -->
+                <section id="rootwizard" class="tabbable transparent tile">
+
+
+
+                  <!-- tile header -->
+                  <div class="tile-header transparent">
+                    <h1><strong>Form</strong> Wizard</h1>
+                    <div class="controls">
+                      <a href="#" class="minimize"><i class="fa fa-chevron-down"></i></a>
+                      <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
+                      <a href="#" class="remove"><i class="fa fa-times"></i></a>
+                    </div>
+                  </div>
+                  <!-- /tile header -->
+
+                  <!-- tile widget -->
+                  <div class="tile-widget nopadding color transparent-black rounded-top-corners">
+                    <ul>
+                      <li><a href="#tab1" data-toggle="tab">User Data</a></li>
+                      <li><a href="#tab2" data-toggle="tab">Contact</a></li>
+                      <li><a href="#tab3" data-toggle="tab">EULA</a></li>
+                    </ul>
+                  </div>
+                  <!-- /tile widget -->
+
+                  <!-- tile body -->
+                  <div class="tile-body">
+                    
+                    <div id="bar" class="progress progress-striped active">
+                      <div class="progress-bar progress-bar-cyan animate-progress-bar"></div>
+                    </div>
+
+                    <div class="tab-content">
+                      
+                      <div class="tab-pane" id="tab1">
+                        {{ Form::model($player, array('role' => 'form', 'method' => 'put' , 'class' => 'form-horizontal form1',  'parsley-validate', 'route' => array('players.update', $player->id))) }}
+                        <legend>Personal Information</legend>
+                        <div class="form-group">
+                          <label for="first_name" class="col-sm-4 control-label">First Name</label>
+                          <div class="col-sm-8">
+                            {{ Form::text('first_name', '', array( 'class' => 'form-control', 
+                              'parsley-trigger' => 'change', 'parsley-required' => 'true', 'parsley-minlength' => '4', 'parsley-validation-minlength' => '1')) }}
+                          </div>
+                        </div>
+
+
+
+
+                         {{ Form::close() }}
+
+                        </form>
+                      </div>
+
+                      <div class="tab-pane" id="tab2">
+
+                        {{ Form::model($player, array('role' => 'form', 'method' => 'put' , 'class' => 'form-horizontal form2',  'parsley-validate', 'route' => array('players.update', $player->id))) }}
+                         <!-- 
+                          <div class="form-group">
+                            <label for="email" class="col-sm-2 control-label">Email *</label>
+                            <div class="col-sm-10">
+                              <input type="email" class="form-control" id="email" parsley-trigger="change" parsley-required="true" parsley-minlength="4" parsley-type="email" parsley-validation-minlength="1">
+                            </div>
+                          </div> -->
+
+                           <div class="form-group">
+                          <label for="last_name" class="col-sm-4 control-label">Last Name</label>
+                          <div class="col-sm-8">
+                            {{ Form::text('last_name', '', array( 'class' => 'form-control', 
+                              'parsley-trigger' => 'change', 'parsley-required' => 'true', 'parsley-minlength' => '4', 'parsley-validation-minlength' => '1')) }}
+                          </div>
+                        </div>
+
+
+                        
+                        <div class="form-group">
+                          <label for="phone" class="col-sm-4 control-label">Phone</label>
+                          <div class="col-sm-8">
+                            {{ Form::text('phone','', array('class' => 'form-control')) }}
+                          </div>
+                        </div>
+
+                        <legend>Address</legend>
+                        <div class="form-group">
+                          <label for="street" class="col-sm-4 control-label">Street Address</label>
+                          <div class="col-sm-8">
+                            {{ Form::text('street','', array('class' => 'form-control')) }}
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="city" class="col-sm-4 control-label">City</label>
+                          <div class="col-sm-8">
+                            {{ Form::text('city','', array('class' => 'form-control')) }}
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="state" class="col-sm-4 control-label">State</label>
+                          <div class="col-sm-8">
+                            {{ Form::select('state', array(
+                              'AL' => 'AL - Alabama',
+                              'AK' => 'AK - Alaska',
+                              'AS' => 'AS - American Samoa',
+                              'AZ' => 'AZ - Arizona',
+                              'AR' => 'AR - Arkansas',
+                              'CA' => 'CA - California',
+                              'CO' => 'CO - Colorado',
+                              'CT' => 'CT - Connecticut',
+                              'DE' => 'DE - Delaware',
+                              'DC' => 'DC - District of Columbia',
+                              'FM' => 'FM - Federated States of Micronesia',
+                              'FL' => 'FL - Florida',
+                              'GA' => 'GA - Georgia',
+                              'GU' => 'GU - Guam',
+                              'HI' => 'HI - Hawaii',
+                              'ID' => 'ID - Idaho',
+                              'IL' => 'IL - Illinois',
+                              'IN' => 'IN - Indiana',
+                              'IA' => 'IA - Iowa',
+                              'KS' => 'KS - Kansas',
+                              'KY' => 'KY - Kentucky',
+                              'LA' => 'LA - Louisiana',
+                              'ME' => 'ME - Maine',
+                              'MH' => 'MH - Marshall Islands',
+                              'MD' => 'MD - Maryland',
+                              'MA' => 'MA - Massachusetts',
+                              'MI' => 'MI - Michigan',
+                              'MN' => 'MN - Minnesota',
+                              'MS' => 'MS - Mississippi',
+                              'MO' => 'MO - Missouri',
+                              'MT' => 'MT - Montana',
+                              'NE' => 'NE - Nebraska',
+                              'NV' => 'NV - Nevada',
+                              'NH' => 'NH - New Hampshire',
+                              'NJ' => 'NJ - New Jersey',
+                              'NM' => 'NM - New Mexico',
+                              'NY' => 'NY - New York',
+                              'NC' => 'NC - North Carolina',
+                              'ND' => 'ND - North Dakota',
+                              'MP' => 'MP - Northern Mariana Islands',
+                              'OH' => 'OH - Ohio',
+                              'OK' => 'OK - Oklahoma',
+                              'OR' => 'OR - Oregon',
+                              'PW' => 'PW - Palau',
+                              'PA' => 'PA - Pennsylvania',
+                              'PR' => 'PR - Puerto Rico',
+                              'RI' => 'RI - Rhode Island',
+                              'SC' => 'SC - South Carolina',
+                              'SD' => 'SD - South Dakota',
+                              'TN' => 'TN - Tennessee',
+                              'TX' => 'TX - Texas',
+                              'UT' => 'UT - Utah',
+                              'VT' => 'VT - Vermont',
+                              'VI' => 'VI - Virgin Islands',
+                              'VA' => 'VA - Virginia',
+                              'WA' => 'WA - Washington',
+                              'WV' => 'WV - West Virginia',
+                              'WI' => 'WI - Wisconsin',
+                              'WY' => 'WY - Wyoming',
+                              'AA' => 'AA - Armed Forces Americas',
+                              'AE' => 'AE - Armed Forces Africa',
+                              'AE' => 'AE - Armed Forces Canada',
+                              'AE' => 'AE - Armed Forces Europe',
+                              'AE' => 'AE - Armed Forces Middle East',
+                              'AP' => 'AP - Armed Forces Pacific',), 'cribbb',
+                              array('class'=>'chosen-select chosen-transparent form-control')) }}
+
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="zip" class="col-sm-4 control-label">Zip</label>
+                          <div class="col-sm-8">
+                            {{ Form::text('zip','', array('class' => 'form-control')) }}
+                          </div>
+                        </div>
+
+
+                        
+                        {{ Form::close()}}
+
+                      </div>
+                      
+                      <div class="tab-pane" id="tab3">
+                        
+                        {{ Form::model($player, array('role' => 'form', 'method' => 'put' , 'class' => 'form-horizontal form3', 'role' => 'form', 'parsley-validate', 'route' => array('players.update', $player->id))) }}
+                         <legend>Camp information</legend>
+                        <div class="form-group">
+                            <label for="email" class="col-sm-2 control-label">Email *</label>
+                            <div class="col-sm-10">
+                              <input type="email" class="form-control" id="email" parsley-trigger="change" parsley-required="true" parsley-minlength="4" parsley-type="email" parsley-validation-minlength="1">
+                            </div>
+                          </div>
+
+                        <div class="form-group">
+                          <label for="grad_year" class="col-sm-4 control-label">Graduation Year</label>
+                          <div class="col-sm-8">
+                            {{ Form::select('season_id', $seasons_array, null, array('class'=>'chosen-select chosen-transparent form-control')) }}
+                          </div>
+                        </div>
+                            {{ Form::submit('Update', array('class' => 'btn btn-info')) }}
+                            {{ link_to_route('players.show', 'Cancel', $player->id, array('class' => 'btn')) }}
+                        {{ Form::close() }}
+
+                      </div>
+
+                    </div>
+
+                  </div>
+                  <!-- /tile body -->
+
+                  <!-- tile footer -->
+                  <div class="tile-footer border-top color white rounded-bottom-corners nopadding">
+                    <ul class="pager pager-full wizard">
+                      <li class="previous"><a href="javascript:;"><i class="fa fa-arrow-left fa-lg"></i></a></li>
+                      <li class="next"><a href="javascript:;"><i class="fa fa-arrow-right fa-lg"></i></a></li>
+                      <li class="next finish" style="display:none;"><a href="javascript:;"><i class="fa fa-check fa-lg"></i></a></li>
+                    </ul>
+                  </div>
+                  <!-- /tile footer -->
+                  
+                
+
+
+                </section>
+                <!-- /tile -->
+
+
+
+
+              </div>
+              <!-- /col 12 -->
+
+
+              
+            </div>
+            <!-- /row -->
+          
+
+
+          </div>
+          <!-- /content container -->
+
+
+
+
+
+
+        </div>
+        <!-- Page content end -->
+
+
+
+
+
+
+      </div>
+      <!-- Make page fluid-->
+
+
+
+
+    </div>
+    <!-- Wrap all page content end -->
+
+
+
+    <script>
+    $(function(){
+
+      //initialize form wizard
+      $('#rootwizard').bootstrapWizard({
+
+        'tabClass': 'nav nav-tabs tabdrop',
+        onTabShow: function(tab, navigation, index) {
+          var $total = navigation.find('li').not('.tabdrop').length;
+          var $current = index+1;
+          var $percent = ($current/$total) * 100;
+          $('#rootwizard').find('#bar .progress-bar').css({width:$percent+'%'});
+
+          // If it's the last tab then hide the last button and show the finish instead
+          if($current >= $total) {
+            $('#rootwizard').find('.pager .next').hide();
+            $('#rootwizard').find('.pager .finish').show();
+            $('#rootwizard').find('.pager .finish').removeClass('disabled');
+          } else {
+            $('#rootwizard').find('.pager .next').show();
+            $('#rootwizard').find('.pager .finish').hide();
+          }  
+        },
+
+        onNext: function(tab, navigation, index) {
+
+          var form = $('.form' + index)
+
+          form.parsley('validate');
+
+          if(form.parsley('isValid')) {
+            tab.addClass('success');       
+          } else {
+            return false;
+          }
+
+        },
+
+        onTabClick: function(tab, navigation, index) {
+
+          var form = $('.form' + (index+1))
+
+          form.parsley('validate');
+
+          if(form.parsley('isValid')) {
+            tab.addClass('success');  
+          } else {
+            return false;
+          }
+
+        }
+
+      });
+
+      // Initialize tabDrop
+      $('.tabdrop').tabdrop({text: '<i class="fa fa-th-list"></i>'});
+      
+      
+    })
+      
+    </script>
+
+    @endsection

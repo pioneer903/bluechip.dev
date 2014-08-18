@@ -1,0 +1,64 @@
+@extends('layouts.master')
+
+@section('nav')
+	
+@endsection
+
+
+@section('content')
+	<div class="welcome">
+		
+		<div class="container">
+			<div class="span4 well">
+				<legend>Edit {{$player->first_name}} {{$player->last_name}}&rsquo;s profile</legend>
+				<!-- {{ Form::model($player, array('method' => 'PUT', 'route' =>array('players.update', $player->id))) }} -->
+				{{ Form::model($player, array('role' => 'form', 'method' => 'put', 'route' => array('players.update', $player->id))) }} 
+
+				
+
+	            {{ Form::label('username', 'Username:') }}
+	            {{ Form::text('username') }}<br>
+
+	            {{ Form::label('first_name', 'First Name')}}
+	            {{ Form::text('first_name')}}<br>
+	        
+	            {{ Form::label('last_name', 'Last Name:') }}
+	            {{ Form::text('last_name') }}<br>
+	        			        
+	            {{ Form::label('email', 'Email:') }}
+	            {{ Form::text('email') }}<br>
+	        			        
+	            {{ Form::label('phone', 'Phone:') }}
+	            {{ Form::text('phone') }}<br>
+	        			        
+	            {{ Form::label('height', 'Height:') }}
+	            {{ Form::text('height') }}<br>
+     			        
+	            {{ Form::submit('Update', array('class' => 'btn btn-info')) }}
+	            {{ link_to_route('players.show', 'Cancel', $player->id, array('class' => 'btn')) }}
+				        
+				   
+				{{ Form::close() }}
+			</div>
+			<div class="span4 well">
+				@if($errors->any())
+				<ul>
+					{{ implode('', $errors->all('<li class="error">:message')) }}
+				</ul>
+				@endif
+			</div>
+
+		</div>
+
+
+
+	</div>
+@stop
+
+@section('footer')
+
+	<footer>
+		<hr>
+		Copyright
+	</footer>
+@stop
