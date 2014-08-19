@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'AddColumnsSignatureDateToPlayersTable' => $baseDir . '/app/database/migrations/2014_06_20_182913_add_columns_signature_date_to_players_table.php',
     'AddColumnsToPlayersTable' => $baseDir . '/app/database/migrations/2014_06_19_154556_add_columns_to_players_table.php',
+    'AddLetterToPlayersTable' => $baseDir . '/app/database/migrations/2014_08_18_214551_add_letter_to_players_table.php',
     'AddTableToken' => $baseDir . '/app/database/migrations/2014_06_13_001420_add_table_token.php',
     'AuthController' => $baseDir . '/app/controllers/AuthController.php',
     'Author' => $baseDir . '/app/models/Author.php',

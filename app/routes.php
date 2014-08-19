@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'HomeController@showWelcome');
+// Route::get('players.letter', 'PlayersController@letter');
 
 // Authentication
 Route::get('login', 'AuthController@showLogin');
@@ -47,6 +48,7 @@ Route::get('about', 'HomeController@about');
 Route::get('thanks', 'HomeController@thanks');
 
 Route::post('ajax', 'PlayersController@ajax');
+Route::post('ajaxLetter', 'PlayersController@ajaxLetter');
 Route::post('email', 'PlayersController@email');
 Route::post('sendemail', 'PlayersController@emailSend');
 
@@ -62,6 +64,9 @@ Route::get('print_player/{id}', array('as' => 'print_player', 'uses'=> 'PlayersC
  //                    ->with('season', $season);
 
     
+}));
+Route::get('letter/{id}', array('as' => 'letter', 'uses'=> 'PlayersController@letter', function($id){
+
 }));
 // get the cuteness level of a puppy
 Route::get('puppies/{cutelevel}', function($cutelevel) 

@@ -3,6 +3,7 @@ body.bg-3{background-attachment:fixed;}
 /*nav ul li{float:left; display:inline;}*/
 .content, .nav{width:90%; margin: auto}
 .content{margin-top: 50px}
+p{text-indent: 30px; }
 .nav a {font-size: 1.3em; color: white}
 .nav a:hover{color: #333}
 /*.email{color:white; text-decoration: underline;}

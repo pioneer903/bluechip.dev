@@ -107,10 +107,10 @@ class PlayersController extends BaseController {
       $player->street = $input['street'];
       $player->city = $input['city'];
       $player->state = $input['state'];
-
       $player->zip = $input['zip'];
 
       $player->season_id = $input['season_id'];
+      $player->graduation_year = $input['graduation_year'];
       $player->save();
 
       $token = $player->last_name . Str::random(5);
@@ -259,6 +259,12 @@ class PlayersController extends BaseController {
     $player->paid = Input::get('checked');
     $player->save();
   }
+  public function ajaxLetter() {
+
+    $player = Player::find(Input::get('id'));
+    $player->letter = Input::get('letter');
+    $player->save();
+  }
 
   public function link($token) {
 
@@ -329,6 +335,17 @@ class PlayersController extends BaseController {
       ->with('emails', $emails)
       ->with('subject', $subject)
       ->with('body', $body);
+  }
+
+
+  public function letter($id){
+    //lookup specific player by id
+    $player = Player::find($id);
+
+    $season = Season::where('id', '=', $player->season_id)->first();
+    return View::make('players.letter')
+                    ->with('player', $player)
+                    ->with('season', $season);
   }
 
 }

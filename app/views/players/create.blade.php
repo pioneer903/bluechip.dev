@@ -164,7 +164,7 @@
                 </div>
 
 
-                <legend>Camp information</legend>
+                <legend>Camp and School information</legend>
                 
 
                 <div class="form-group">
@@ -173,6 +173,20 @@
                     {{ Form::select('season_id', $seasons_array, null, array('class'=>'chosen-select chosen-transparent form-control')) }}
                   </div>
                 </div>
+                <div class="form-group">
+                  <label for="graduation_year" class="col-sm-4 control-label">graduation_year</label>
+                  <div class="col-sm-8">
+                    {{ Form::select('graduation_year', array(
+                      'freshman' => 'Freshman',
+                      'junior' => 'Junior',
+                      'sophomore' => 'Sophomore',
+                      'senior' => 'Senior',), 'cribbb',
+                      array('class'=>'chosen-select chosen-transparent form-control')) }}
+
+                  </div>
+                </div>
+
+
 
                
                 <div class="form-group form-footer">

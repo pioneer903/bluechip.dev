@@ -52,12 +52,23 @@ return array(
 			'prefix'   => '',
 		),
 
+		// 'mysql' => array(
+		// 	'driver'    => 'mysql',
+		// 	'host'      => 'db531591443.db.1and1.com',
+		// 	'database'  => 'db531591443',
+		// 	'username'  => 'dbo531591443',
+		// 	'password'  => 'mAximum1/',
+		// 	'charset'   => 'utf8',
+		// 	'collation' => 'utf8_unicode_ci',
+		// 	'prefix'    => '',
+		// ),
+
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => 'db531591443.db.1and1.com',
-			'database'  => 'db531591443',
-			'username'  => 'dbo531591443',
-			'password'  => 'mAximum1/',
+			'host'      => 'localhost',
+			'database'  => 'bluechip.dev',
+			'username'  => 'root',
+			'password'  => '',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
