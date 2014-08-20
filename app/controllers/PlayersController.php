@@ -31,23 +31,7 @@ class PlayersController extends BaseController {
     return "form submitted. The name was " . Input::get('user_name');
   }
 
-  /**
-   * Show the form for creating a new resource.
-   * GET /players/registration
-   *
-   * @return Response
-   */
-  public function registration($id) {
-    //route/users/create
-    //lookup specific player by id
-    $player = Player::find($id);
-
-    $season = Season::where('id', '=', $player->season_id)->first();
-    return View::make('players.registration')
-                    ->with('player', $player)
-                    ->with('season', $season);
-  }
-
+ 
   /**
    * Show the form for creating a new resource.
    * GET /players/create
@@ -108,9 +92,13 @@ class PlayersController extends BaseController {
       $player->city = $input['city'];
       $player->state = $input['state'];
       $player->zip = $input['zip'];
+      $player->country = $input['country'];
 
       $player->season_id = $input['season_id'];
       $player->graduation_year = $input['graduation_year'];
+      $player->position = $input['position'];
+      $player->player_registration_date = $input['player_registration_date'];
+      $player->payment_due_date = $input['payment_due_date'];
       $player->save();
 
       $token = $player->last_name . Str::random(5);
@@ -213,14 +201,16 @@ class PlayersController extends BaseController {
    */
   public function update($id) {
     $input = Input::except(array('_method', '_token'));
-
+    $user = User::where('username', '=', 'admin');
     $validation = Validator::make($input, Player::$rules_update);
     if ($validation->passes()) {
       $player = Player::find($id);
       $player->update($input);
-      if (Auth::guest()) {
-        return Redirect::to('home.thanks', $id)
-                        ->with('success', $player->first_name . ' ' . $player->last_name . '\'s profile was successfully updated');
+      if (Auth::check($user)) {
+        // return Redirect::to('thanks')
+        //                 ->with('success', $player->first_name . ' ' . $player->last_name . '\'s profile was successfully updated');
+        return Redirect::route('players.confirmation', $id)
+                      ->with('success', $player->first_name . ' ' . $player->last_name . '\'s profile was successfully updated');
       }
       return Redirect::route('players.show', $id)
                       ->with('success', $player->first_name . ' ' . $player->last_name . '\'s profile was successfully updated');
@@ -337,15 +327,20 @@ class PlayersController extends BaseController {
       ->with('body', $body);
   }
 
-
-  public function letter($id){
-    //lookup specific player by id
+  public function save_pdf($id){
     $player = Player::find($id);
+    $pdf = PDF::loadHTML($player->letter);
+    return $pdf->download($player->first_name.' '.$player->last_name.'.pdf');
 
-    $season = Season::where('id', '=', $player->season_id)->first();
-    return View::make('players.letter')
-                    ->with('player', $player)
-                    ->with('season', $season);
   }
+
+  public function confirmation($id){
+
+  }
+
+
+  
+
+
 
 }

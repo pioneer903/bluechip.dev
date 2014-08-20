@@ -45,7 +45,7 @@ legend{color: white}
 label{text-transform: capitalize;}
 span.white{color:white;}
 span.bold{font-weight: bold}
-span.capitalize{text-transform: capitalize;}
+.capitalize{text-transform: capitalize;}
 .hidden{visibility: hidden;}
 
 tbody>tr>td, thead>tr>th{padding-left: 8px !important;}

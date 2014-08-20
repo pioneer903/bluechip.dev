@@ -81,11 +81,11 @@
                     {{ Form::text('city','', array('class' => 'form-control')) }}
                   </div>
                 </div>
-
                 <div class="form-group">
                   <label for="state" class="col-sm-4 control-label">State</label>
                   <div class="col-sm-8">
                     {{ Form::select('state', array(
+                      ''   => 'Select State/Province',
                       'AL' => 'AL - Alabama',
                       'AK' => 'AK - Alaska',
                       'AS' => 'AS - American Samoa',
@@ -150,7 +150,21 @@
                       'AE' => 'AE - Armed Forces Canada',
                       'AE' => 'AE - Armed Forces Europe',
                       'AE' => 'AE - Armed Forces Middle East',
-                      'AP' => 'AP - Armed Forces Pacific',), 'cribbb',
+                      'AP' => 'AP - Armed Forces Pacific',
+                      ' '   => '=========================',
+                      'AB' => 'Alberta',
+                      'BC' => 'British Columbia',
+                      'MB' => 'Manitoba',
+                      'NB' => 'New Brunswick',
+                      'NL' => 'Newfoundland and Labrador',
+                      'NS' => 'Nova Scotia',
+                      'NT' => 'Northwest Territories',
+                      'NU' => 'Nunavut',
+                      'ON' => 'Ontario',
+                      'PE' => 'Prince Edward Island',
+                      'QC' => 'Quebec',
+                      'SK' => 'Saskatchewan',
+                      'YT' => 'Yukon',), null,
                       array('class'=>'chosen-select chosen-transparent form-control')) }}
 
                   </div>
@@ -162,38 +176,83 @@
                     {{ Form::text('zip','', array('class' => 'form-control')) }}
                   </div>
                 </div>
+                <div class="form-group">
+                  <label for="country" class="col-sm-4 control-label">country </label>
+                  <div class="col-sm-8">
+                    {{ Form::select('country', array(
+                      'US' => 'United States',
+                      'Canada' => 'Canada',), null,
+                      array('id' =>'country', 'class'=>'chosen-select chosen-transparent form-control')) }}
+                  </div>
+                </div>
 
 
                 <legend>Camp and School information</legend>
                 
 
                 <div class="form-group">
-                  <label for="grad_year" class="col-sm-4 control-label">Graduation Year</label>
+                  <label for="grad_year" class="col-sm-4 control-label">Camp Season</label>
                   <div class="col-sm-8">
                     {{ Form::select('season_id', $seasons_array, null, array('class'=>'chosen-select chosen-transparent form-control')) }}
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="graduation_year" class="col-sm-4 control-label">graduation_year</label>
+                  <label for="graduation_year" class="col-sm-4 control-label">graduation year</label>
                   <div class="col-sm-8">
                     {{ Form::select('graduation_year', array(
                       'freshman' => 'Freshman',
                       'junior' => 'Junior',
                       'sophomore' => 'Sophomore',
-                      'senior' => 'Senior',), 'cribbb',
+                      'senior' => 'Senior',), null,
                       array('class'=>'chosen-select chosen-transparent form-control')) }}
 
                   </div>
                 </div>
+                <div class="form-group">
+                  <label for="position" class="col-sm-4 control-label">position </label>
+                  <div class="col-sm-8">
+                    {{ Form::select('position', array(
+                      ''  => 'Select Position', 
+                      'A' => 'A - Attack',
+                      'D' => 'D - Defence (Long Stick Middlefield)',
+                      'G' => 'G - Goalie',
+                      'M' => 'M - Middlefield',), null ,
+                      array('id' =>'positioin', 'class'=>'chosen-select chosen-transparent form-control')) }}
+                  </div>
+                </div>
+                <?php
+                    $player_registration_date = new DateTime();
+                    $player_registration_date = $player_registration_date->format('Y-m-d');
 
+                    $payment_due_date = new DateTime();
+                    $payment_due_date->add(new DateInterval('P1M'));
+                    $payment_due_date = $payment_due_date->format('Y-m-d');
+                ?>
 
+                <div class="form-group hidden">
+                  <label for="player_registration_date" class="col-sm-4 control-label">player registration date *</label>
+                  <div class="col-sm-8">
+                    {{ Form::text('player_registration_date', $player_registration_date, 
+                        array('class' => 'form-control ')) }}
+                  </div>
+                </div>
+                <div class="form-group hidden">
+                  <label for="payment_due_date" class="col-sm-4 control-label">payment_due_date  *</label>
+                  <div class="col-sm-8">
+                    {{ Form::text('payment_due_date', $payment_due_date,
+                     array('class' => 'form-control ', )) }}
+                  </div>
+                </div>
 
                
                 <div class="form-group form-footer">
-                  <div class="col-sm-offset-4 col-sm-8">
+                  <div class="col-sm-offset-4  col-sm-3">
                     {{ Form::submit('Add player', array('class' => 'btn btn-primary'))}}
-
                   </div>
+                  <div class="col-sm-2">
+                    {{ Form::reset('Reset', array('class' => 'btn btn-danger'))}}
+                  </div>
+                  
                 </div>
               {{ Form::close() }}
               <div class="span4" style="padding:30px;">

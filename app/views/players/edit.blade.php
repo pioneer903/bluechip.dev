@@ -93,7 +93,8 @@ $(document).ready(function(){
                     <h1>Edit player</h1>
                   </div>
                   <!-- /tile header -->
-                 <!-- tile body -->
+
+                  <!-- tile body -->
             <div class="tile-body color transparent-black rounded-corners">
               
               {{ Form::model($player, array('role' => 'form', 'method' => 'put' , 'class' => 'form-horizontal form1',  'parsley-validate', 'route' => array('players.update', $player->id))) }}
@@ -160,10 +161,10 @@ $(document).ready(function(){
                 </div>
 
                 <div class="form-group">
-                  <label for="state" class="col-sm-4 control-label">State *</label>
+                  <label for="state" class="col-sm-4 control-label">State</label>
                   <div class="col-sm-8">
                     {{ Form::select('state', array(
-                      ''   => 'Select State',
+                      ''   => 'Select State/Province',
                       'AL' => 'AL - Alabama',
                       'AK' => 'AK - Alaska',
                       'AS' => 'AS - American Samoa',
@@ -228,34 +229,65 @@ $(document).ready(function(){
                       'AE' => 'AE - Armed Forces Canada',
                       'AE' => 'AE - Armed Forces Europe',
                       'AE' => 'AE - Armed Forces Middle East',
-                      'AP' => 'AP - Armed Forces Pacific',), $player->state,
-                      array('id'=>'state', 'class'=>'chosen-select chosen-transparent form-control',
-                        'parsley-trigger' => 'change', 'parsley-required' => 'true', 'parsley-error-container' => 'state')) }}
+                      'AP' => 'AP - Armed Forces Pacific',
+                      ' '   => '=========================',
+                      'AB' => 'Alberta',
+                      'BC' => 'British Columbia',
+                      'MB' => 'Manitoba',
+                      'NB' => 'New Brunswick',
+                      'NL' => 'Newfoundland and Labrador',
+                      'NS' => 'Nova Scotia',
+                      'NT' => 'Northwest Territories',
+                      'NU' => 'Nunavut',
+                      'ON' => 'Ontario',
+                      'PE' => 'Prince Edward Island',
+                      'QC' => 'Quebec',
+                      'SK' => 'Saskatchewan',
+                      'YT' => 'Yukon',), null,
+                      array('class'=>'chosen-select chosen-transparent form-control')) }}
 
                   </div>
                 </div>
-        <div class="form-group">
-                  <label for="zip" class="col-sm-4 control-label">Zip*</label>
+
+                <div class="form-group">
+                  <label for="zip" class="col-sm-4 control-label">Zip</label>
                   <div class="col-sm-8">
-                    {{ Form::text('zip', $player->zip, array('class' => 'form-control',
-                        'parsley-trigger' => 'change', 'parsley-required' => 'true', 'parsley-minlength' => '2', 'parsley-validation-minlength' => '1')) }}
+                    {{ Form::text('zip',$player->zip, array('class' => 'form-control')) }}
                   </div>
                 </div>
-               <!--  <div class="form-group">
-                  <label for="birth_date" class="col-sm-4 control-label">Date of birth *</label>
+                <div class="form-group">
+                  <label for="country" class="col-sm-4 control-label">country </label>
                   <div class="col-sm-8">
-                    {{ Form::text('birth_date', $player->birth_date, array('class' => 'form-control datepicker', 
-                      'parsley-trigger' => 'change', 'parsley-required' => 'true', 'parsley-minlength' => '4', 
-                      'parsley-type'=>'dateIso', 'parsley-validation-minlength'=> '1', 'placeholder'=>'YYYY-MM-DD')) }}
+                    {{ Form::select('country', array(
+                      'US' => 'United States',
+                      'Canada' => 'Canada',), null,
+                      array('id' =>'country', 'class'=>'chosen-select chosen-transparent form-control')) }}
                   </div>
-                </div> -->
+                </div>
                 
                 <div class="form-group">
                   <label for="birth_date" class="col-sm-4 control-label">Date of birth *</label>
                   <div class="col-sm-8">
                     {{ Form::date('birth_date', $player->birth_date, array('class' => 'form-control datepicker', 
                       'parsley-trigger' => 'change', 'parsley-required' => 'true', 'parsley-minlength' => '4', 
-                      'parsley-type'=>'dateIso', 'parsley-validation-minlength'=> '1', 'placeholder'=>'YYYY-MM-DD')) }}
+                      'parsley-type'=>'dateIso', 'parsley-validation-minlength'=> '1')) }}
+                  </div>
+                </div>
+                
+                <div class="form-group">
+                  <label for="player_registration_date" class="col-sm-4 control-label">player registration date</label>
+                  <div class="col-sm-8">
+                    <?php $player_registration_date = strtotime($player->player_registration_date);  ?>
+                    {{ Form::text('player_registration_date',  date('m/d/Y',$player_registration_date),
+                     array('class' => 'form-control ','readonly')) }}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="payment_due_date" class="col-sm-4 control-label">payment due date  </label>
+                  <div class="col-sm-8">
+                    <?php $payment_due_date = strtotime($player->payment_due_date); ?>
+                    {{ Form::text('payment_due_date', date('m/d/Y', $payment_due_date),
+                     array('class' => 'form-control ','readonly')) }}
                   </div>
                 </div>
 
@@ -274,7 +306,8 @@ $(document).ready(function(){
                         'parsley-trigger' => 'change', 'parsley-required' => 'true', 'parsley-minlength' => '2', 'parsley-validation-minlength' => '1')) }}
                   </div>
                 </div>
-                
+
+
 
                 <legend>Parents Information</legend>
                 <div class="form-group">
@@ -308,10 +341,22 @@ $(document).ready(function(){
 
                 <legend>School and Team Information</legend>
                 
-        <div class="form-group">
-                  <label for="grad_year" class="col-sm-4 control-label">Graduation year and Season</label>
+                <div class="form-group">
+                  <label for="grad_year" class="col-sm-4 control-label">Camp Season</label>
                   <div class="col-sm-8">
                     {{ Form::select('season_id', $seasons_array, null, array('class'=>'chosen-select chosen-transparent form-control')) }}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="graduation_year" class="col-sm-4 control-label">graduation year</label>
+                  <div class="col-sm-8">
+                    {{ Form::select('graduation_year', array(
+                      'freshman' => 'Freshman',
+                      'junior' => 'Junior',
+                      'sophomore' => 'Sophomore',
+                      'senior' => 'Senior',), 'cribbb',
+                      array('class'=>'chosen-select chosen-transparent form-control')) }}
+
                   </div>
                 </div>
                 <div class="form-group">
@@ -392,7 +437,7 @@ $(document).ready(function(){
                           @if(($player->hand)=="left") checked="checked"@endif> 
                       <label for="left" >left</label>
                     
-                      <input type="radio" name="hand" id="right" value="Right" 
+                      <input type="radio" name="hand" id="right" value="right" 
                           parsley-group="hand-group" parsley-trigger="change" parsley-required="true" parsley-mincheck="1" parsley-error-container="#hand_label .last"
                           @if(($player->hand)=="right") checked="checked"@endif> 
                       <label for="right">right</label>
@@ -431,8 +476,6 @@ $(document).ready(function(){
                     </div>
                   </div>
                 </div>
-        
- 
                 <div class="form-group">
                   <label for="lacrosse_honors" class="col-sm-4 control-label">lacrosse honors </label>
                   <div class="col-sm-8">
@@ -451,6 +494,7 @@ $(document).ready(function(){
                     {{ Form::text('committed_to', $player->committed_to, array('class' => 'form-control', 'placeholder' => 'Name of College')) }}
                   </div>
                 </div>
+
 
 
                 <legend>Medical Information</legend>
@@ -474,7 +518,7 @@ $(document).ready(function(){
                   <div class="col-sm-8">
                     {{ Form::date('insurance_date', $player->insurance_date, array('class' => 'form-control datepicker', 
                       'parsley-trigger' => 'change', 'parsley-required' => 'true', 'parsley-minlength' => '4', 
-                      'parsley-type'=>'dateIso', 'parsley-validation-minlength'=> '1', 'placeholder'=>'YYYY-MM-DD')) }}
+                      'parsley-type'=>'dateIso', 'parsley-validation-minlength'=> '1')) }}
                   </div>
                 </div>
                 <legend> Medical Treatment Authorization</legend>
@@ -488,7 +532,7 @@ $(document).ready(function(){
                   <div class="col-sm-4">
                     {{ Form::date('player_signature_date_medical', $player->player_signature_date_medical, array('class' => 'form-control datepicker', 
                       'parsley-trigger' => 'change', 'parsley-required' => 'true', 'parsley-minlength' => '4', 
-                      'parsley-type'=>'dateIso', 'parsley-validation-minlength'=> '1', 'placeholder'=>'YYYY-MM-DD')) }}
+                      'parsley-type'=>'dateIso', 'parsley-validation-minlength'=> '1')) }}
                   </div>
                 </div>
                 <div class="form-group">
@@ -520,34 +564,10 @@ $(document).ready(function(){
                     {{ Form::textarea('medical_conditions', $player->medical_conditions, array('class' => 'form-control')) }}
                     <span class="help-block white">Please list any medical conditions (allergies, asthma, diabetes, etc.) or special medication or physical conditions( recent injuries) that our certified trainer needs to be aware of to help your son play to the best of his ability.</span>
                   </div>
-
                 </div>
 
-               <!--  <legend>Nike Release</legend>
-                <div class="form-group">
-                  <label for="release_text" class="col-sm-4 control-label">nike release  </label>
-                  <div class="col-sm-8">
-                    {{ Form::textarea('release_text', 
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at porttitor sem. Aliquam erat volutpat. Donec placerat nisl magna, et faucibus arcu condimentum sed. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at porttitor sem. Aliquam erat volutpat. Donec placerat nisl magna, et faucibus arcu condimentum sed. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at porttitor sem. Aliquam erat volutpat. Donec placerat nisl magna, et faucibus arcu condimentum sed. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at porttitor sem. Aliquam erat volutpat. Donec placerat nisl magna, et faucibus arcu condimentum sed.',
-                     array('class' => 'form-control', 'readonly')) }}
-                  </div>
-                </div>
-                
-            <div class="form-group ">
-              <label for="release_text" class="col-sm-4 control-label">Please check after you read the release  </label>
-                    <div class="col-sm-4">
-                      <div class="checkbox">
-                        <input type="checkbox" value="1" id="opt01" @if($player->over_18) checked="checked" @endif parsley-trigger="change" parsley-required="true" name="over_18">
-                        <label for="opt01" ><span class="white"> Over 18 years old *</span></label>
-                      </div>
-                  </div>
-                  <div class="col-sm-4">
-                      <div class="checkbox">
-                        <input type="checkbox" value="1" id="opt02"  @if($player->acknowledged) checked="checked" @endif parsley-trigger="change" parsley-required="true" name="acknowledged">
-                        <label for="opt02"><span class="white ">Acknowledged *</span></label>
-                      </div>
-                    </div>
-                  </div> -->
+
+
                   <legend>Nike Event Release</legend>
                   <div class="col-md-12 bg-dark" id="release_text" >
                     <p><i>Please Read Carefully, Sign and Submit the form</i></p>
@@ -562,100 +582,101 @@ $(document).ready(function(){
                     <p><b>I have read this Participant Release, fully understand and agree to its terms, and understand that I am giving up substantial rights by signing it. I sign this Participant Release freely and voluntarily, without any inducement or coercion.</b></p>
 
                   </div>
-                <div class="form-group hidden"><!--  Hidden field to submit the text above to the database -->
-                  <label for="release_text" class="col-sm-4 control-label">nike release  </label>
-                  <div class="col-sm-8">
-                    {{ Form::textarea('release_text', 'no text',
-                     array('class' => 'form-control', 'readonly', 'id' => 'release_text_form')) }}
-                  </div>
-                </div>
-                
-                <div class="form-group">
-                  <label class="col-sm-4 control-label" id ="i_certify_label">* I certify that: *</label>
-                  <div class="col-sm-8" id="i_certify">
-                    <div class="radio radio-transparent" >
-                      <input type="radio" name="release_i_certify" id="over_18"  value="I am over the age of majority (18 years of age or older in most states)" 
-                        parsley-group="i_certify-group" parsley-trigger="change" parsley-required="true" parsley-mincheck="1" parsley-error-container="#i_certify_label .last"
-                        @if($player->release_i_certify =="I am over the age of majority (18 years of age or older in most states)") checked="checked" @endif >
-                      <label for="over_18" >I am over the age of majority (18 years of age or older in most states), or</label>
+                  <div class="form-group hidden"><!--  Hidden field to submit the text above to the database -->
+                    <label for="release_text" class="col-sm-4 control-label">nike release  </label>
+                    <div class="col-sm-8">
+                      {{ Form::textarea('release_text', 'no text',
+                       array('class' => 'form-control', 'readonly', 'id' => 'release_text_form')) }}
                     </div>
-                    <div class="radio radio-transparent">
-                      <input type="radio" name="release_i_certify" id="have_parent_consent"
-                        parsley-group="i_certify-group" parsley-trigger="change" parsley-required="true" parsley-mincheck="1" parsley-error-container="#i_certify_label .last"
-                        @if($player->release_i_certify =="I have my parent's or legal guardian's consent as indicated below") checked="checked" @endif value="I have my parent's or legal guardian's consent as indicated below">
-                      <label for="have_parent_consent">I have my parent's or legal guardian's consent as indicated below</label>
-                    </div>                
                   </div>
-                </div>
+                  
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label" id ="i_certify_label">* I certify that: *</label>
+                    <div class="col-sm-8" id="i_certify">
+                      <div class="radio radio-transparent" >
+                        <input type="radio" name="release_i_certify" id="over_18"  value="I am over the age of majority (18 years of age or older in most states)" 
+                          parsley-group="i_certify-group" parsley-trigger="change" parsley-required="true" parsley-mincheck="1" parsley-error-container="#i_certify_label .last"
+                          @if($player->release_i_certify =="I am over the age of majority (18 years of age or older in most states)") checked="checked" @endif >
+                        <label for="over_18" >I am over the age of majority (18 years of age or older in most states), or</label>
+                      </div>
+                      <div class="radio radio-transparent">
+                        <input type="radio" name="release_i_certify" id="have_parent_consent"
+                          parsley-group="i_certify-group" parsley-trigger="change" parsley-required="true" parsley-mincheck="1" parsley-error-container="#i_certify_label .last"
+                          @if($player->release_i_certify =="I have my parent's or legal guardian's consent as indicated below") checked="checked" @endif value="I have my parent's or legal guardian's consent as indicated below">
+                        <label for="have_parent_consent">I have my parent's or legal guardian's consent as indicated below</label>
+                      </div>                
+                    </div>
+                  </div>
 
-                <div class="form-group">
-                  <label for="release_print_name" class="col-sm-4 control-label">Participant's signature and date*</label>
-                  <div class="col-sm-4">
-                    {{ Form::text('release_print_name', $player->release_print_name, array('class' => 'form-control', 'placeholder'=>'Print full name',
-                    'parsley-trigger' => 'change', 'parsley-required' => 'true', 'parsley-minlength' => '4')) }}
+                  <div class="form-group">
+                    <label for="release_print_name" class="col-sm-4 control-label">Participant's signature and date*</label>
+                    <div class="col-sm-4">
+                      {{ Form::text('release_print_name', $player->release_print_name, array('class' => 'form-control', 'placeholder'=>'Print full name',
+                      'parsley-trigger' => 'change', 'parsley-required' => 'true', 'parsley-minlength' => '4')) }}
+                    </div>
+                    <div class="col-sm-4">
+                      {{ Form::date('release_date_signed', $player->release_date_signed, array('class' => 'form-control', 
+                      'parsley-trigger' => 'change', 'parsley-required' => 'true', 'parsley-minlength' => '4', 'parsley-validation-minlength' => '1')) }}
+                    </div>
                   </div>
-                  <div class="col-sm-4">
-                    {{ Form::date('release_date_signed', $player->release_date_signed, array('class' => 'form-control', 
-                    'parsley-trigger' => 'change', 'parsley-required' => 'true', 'parsley-minlength' => '4', 'parsley-validation-minlength' => '1')) }}
+                  <div class="form-group">
+                    <label for="release_birth_date" class="col-sm-4 control-label">Date of birth *</label>
+                    <div class="col-sm-8">
+                      {{ Form::date('release_birth_date', $player->release_birth_date, array('class' => 'form-control')) }}
+                    </div>
                   </div>
-                </div>
-                <div class="form-group">
-                  <label for="release_birth_date" class="col-sm-4 control-label">Date of birth *</label>
-                  <div class="col-sm-8">
-                    {{ Form::date('release_birth_date', $player->release_birth_date, array('class' => 'form-control')) }}
+                  <div class="form-group">
+                    <label for="release_address" class="col-sm-4 control-label">Address *</label>
+                    <div class="col-sm-8">
+                      {{ Form::text('release_address', $player->release_address, array('class' => 'form-control',
+                      'parsley-trigger' => 'change', 'parsley-required' => 'true', 'parsley-minlength' => '4')) }}
+                    </div>
                   </div>
-                </div>
-                <div class="form-group">
-                  <label for="release_address" class="col-sm-4 control-label">Address *</label>
-                  <div class="col-sm-8">
-                    {{ Form::text('release_address', $player->release_address, array('class' => 'form-control',
-                    'parsley-trigger' => 'change', 'parsley-required' => 'true', 'parsley-minlength' => '4')) }}
+                  <div class="form-group">
+                    <label for="release_email" class="col-sm-4 control-label">E-mail address *</label>
+                    <div class="col-sm-8">
+                      {{ Form::text('release_email', $player->release_email, array('class' => 'form-control',
+                      'parsley-trigger' => 'change', 'parsley-required' => 'true', 'parsley-minlength' => '4')) }}
+                    </div>
                   </div>
-                </div>
-                <div class="form-group">
-                  <label for="release_email" class="col-sm-4 control-label">E-mail address *</label>
-                  <div class="col-sm-8">
-                    {{ Form::text('release_email', $player->release_email, array('class' => 'form-control',
-                    'parsley-trigger' => 'change', 'parsley-required' => 'true', 'parsley-minlength' => '4')) }}
+                  <div class="form-group">
+                    <label for="release_phone" class="col-sm-4 control-label">Phone number *</label>
+                    <div class="col-sm-8">
+                      {{ Form::text('release_phone', $player->release_phone, array('class' => 'form-control',
+                      'parsley-trigger' => 'change', 'parsley-required' => 'true', 'parsley-minlength' => '4')) }}
+                    </div>
                   </div>
-                </div>
-                <div class="form-group">
-                  <label for="release_phone" class="col-sm-4 control-label">Phone number *</label>
-                  <div class="col-sm-8">
-                    {{ Form::text('release_phone', $player->release_phone, array('class' => 'form-control',
-                    'parsley-trigger' => 'change', 'parsley-required' => 'true', 'parsley-minlength' => '4')) }}
+                  <div class="form-group">
+                    <label for="release_emergency_contact" class="col-sm-4 control-label">Emergency contact *</label>
+                    <div class="col-sm-8">
+                      {{ Form::text('release_emergency_contact', $player->release_emergency_contact, array('class' => 'form-control',
+                      'parsley-trigger' => 'change', 'parsley-required' => 'true', 'parsley-minlength' => '4')) }}
+                    </div>
                   </div>
-                </div>
-                <div class="form-group">
-                  <label for="release_emergency_contact" class="col-sm-4 control-label">Emergency contact *</label>
-                  <div class="col-sm-8">
-                    {{ Form::text('release_emergency_contact', $player->release_emergency_contact, array('class' => 'form-control',
-                    'parsley-trigger' => 'change', 'parsley-required' => 'true', 'parsley-minlength' => '4')) }}
-                  </div>
-                </div>
 
                 
-                <div class="col-md-12 bg-dark" id="release_text_minor">
-                  <p>IF THE PARTICIPANT IS A MINOR, THE PARENT OR GUARDIAN MYST READ AND SIGN BELOW:</p>
-                  <p>I am the parent or legal guardian of the above-named participant, and I agree that the participant may take part in the Event. 
-                    I understand that transportation may be provided, and, in the event transportation is provided, 
-                    I consent to the participant taking the bus, car or other vehicle provided. 
-                    On behalf of the participant, I hereby irrevocably and unconditionally 
-                    (1) agree to all of the terms of this Participant Release, and 
-                    (2) authorize NIKE to arrange for any necessary medical treatment for Participant.
-                    I also, for myself and on behalf of my heirs, estate, insurers, successors and assigns, 
-                    hereby fully and forever release and discharge the Released Parties (defined above) from any and all claims or causes of action 
-                    I may have for damages for personal or bodily injury, disability, death, loss or damage to person or property, whether arising 
-                    from the negligence of any or all of the Released Parties or otherwise, to the fullest extent permitted by law.
-                  </p>
-                </div>
-                <div class="form-group hidden"><!--  Hidden field to submit the text above to the database -->
-                  <label for="release_text" class="col-sm-4 control-label">nike release  </label>
-                  <div class="col-sm-8">
-                    {{ Form::textarea('release_text_minor', 'no text',
-                     array('class' => 'form-control', 'readonly', 'id' => 'release_text_minor_form')) }}
+                  <div class="col-md-12 bg-dark" id="release_text_minor">
+                    <p>IF THE PARTICIPANT IS A MINOR, THE PARENT OR GUARDIAN MYST READ AND SIGN BELOW:</p>
+                    <p>I am the parent or legal guardian of the above-named participant, and I agree that the participant may take part in the Event. 
+                      I understand that transportation may be provided, and, in the event transportation is provided, 
+                      I consent to the participant taking the bus, car or other vehicle provided. 
+                      On behalf of the participant, I hereby irrevocably and unconditionally 
+                      (1) agree to all of the terms of this Participant Release, and 
+                      (2) authorize NIKE to arrange for any necessary medical treatment for Participant.
+                      I also, for myself and on behalf of my heirs, estate, insurers, successors and assigns, 
+                      hereby fully and forever release and discharge the Released Parties (defined above) from any and all claims or causes of action 
+                      I may have for damages for personal or bodily injury, disability, death, loss or damage to person or property, whether arising 
+                      from the negligence of any or all of the Released Parties or otherwise, to the fullest extent permitted by law.
+                    </p>
                   </div>
-                </div>
+                  <div class="form-group hidden"><!--  Hidden field to submit the text above to the database -->
+                    <label for="release_text" class="col-sm-4 control-label">nike release  </label>
+                    <div class="col-sm-8">
+                      {{ Form::textarea('release_text_minor', 'no text',
+                       array('class' => 'form-control', 'readonly', 'id' => 'release_text_minor_form')) }}
+                    </div>
+                  </div>
+
                 <div class="form-group">
                   <label for="release_parent_name" class="col-sm-4 control-label">Parent or guardian name and date *</label>
                   <div class="col-sm-4">
@@ -664,7 +685,21 @@ $(document).ready(function(){
                   </div>
                   <div class="col-sm-4">
                     {{ Form::date('release_parent_date_signed', $player->release_parent_date_signed, array('class' => 'form-control', 
-                      'parsley-trigger' => 'change', 'parsley-type'=>'dateIso')) }}
+                      'parsley-trigger' => 'change', 'parsley-type'=>'dateIso', 'parsley-required' => 'true')) }}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="check_number" class="col-sm-4 control-label">Check number you are including *</label>
+                  <div class="col-sm-4">
+                    {{Form::text('check_number', $player->check_number,
+                     array('class' => 'form-control', 'id' => 'check_number', 'placeholder' => 'Check number you are including'))}}
+                  </div>
+                </div>
+                <div class="form-group ">
+                  <label for="comments" class="col-sm-4 control-label">additional comments </label>
+                  <div class="col-sm-8">
+                    {{ Form::textarea('comments', $player->comments,
+                     array('class' => 'form-control', 'id' => 'comments', 'placeholder' => 'Please indicate if any initial information was inforrect')) }}
                   </div>
                 </div>
 

@@ -101,6 +101,7 @@
                             <th>Email</th>
                             <th>Grad Year</th>
                             <th>Season</th>
+                            <th>Position</th>
                             <th>Paid in Full</th>
                             <th>Print</th>
                             <th>View</th>
@@ -117,12 +118,13 @@
                     ?>
                             @foreach($player as $u)
                             <tr>
-                                <td class="first_name">{{ $u->first_name }} </td>
-                                <td class="last_name">{{ $u->last_name }} </td>
+                                <td class="first_name capitalize">{{ $u->first_name }} </td>
+                                <td class="last_name capitalize">{{ $u->last_name }} </td>
                                 <td>{{ $u->phone }} </td>
                                 <td class="email">{{ $u->email }}</td>
-                                <td>{{ $grad_year }} </td>
-                                <td>{{ $season_name }} </td>
+                                <td class="capitalize">{{ $u->graduation_year }} </td>
+                                <td class="capitalize">{{ $grad_year.' '.$season_name }} </td>
+                                <td>{{ $u->position }}</td>
                                 <td>{{ Form::checkbox('paid', null, $u->paid, array('class'=>'paid','data-id'=>$u->id))}} </td>
                                 <td>{{ link_to_route('print_player', 'Print player', array($u->id), array('class' => 'btn btn-info')) }}</td>
                                 <td>{{ link_to_route('players.show', 'View', array($u->id), array('class' => 'btn btn-info'))}} </td>

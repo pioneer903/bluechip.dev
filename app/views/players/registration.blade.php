@@ -3,7 +3,12 @@
 @section('nav')
   
 @endsection
-
+<!-- <div class="alert alert-success alert-block hidden non-printable">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <h4>Success</h4>
+      <p>The new player added successfully</p>
+      
+    </div> -->
 @section('content')
 <script type="text/javascript">
         $(document).ready(function() {
@@ -35,25 +40,27 @@
           });
 
           // Save the letter to database using AJAX
-            var frm = $('#contactForm1');
-            frm.submit(function (ev) {
-              var data={ 
-                id: 111,
-                letter: 'text'
+
+            var letter_text = $('#letter_text').html();
+            var letterForm = $('#letterForm');
+            letterForm.submit(function(ev){
+              var data = {
+                id: $(this).attr('data-id'),
+                letter: letter_text
               }
-                $.ajax({
-                    type: "POST",
-                    url: "{{URL::to('ajaxLetter')}}",
-                    data: frm.serialize(),
-                    success: function (data) {
-                        alert('ok');
-                    }
-                });
-
-                ev.preventDefault();
+              $.ajax({
+                type: "POST",
+                url:"{{URL::to('ajaxLetter')}}",
+                data: data,
+                success: function(data){
+                  $('.alert').removeClass('hidden');
+                }
+              });
+               ev.preventDefault();
             });
+            $('#letterForm').submit();
 
-        });
+        });//end document.ready
         
         $(document).on('submit', '.delete-form', function(){
             return confirm('Are you sure you want to delete this player?');
@@ -83,7 +90,11 @@
 
                   <!-- tile header -->
                   <div class="tile-header transparent non-printable">
-                    <div class="btn btn-info" style=' margin-left:-15px; ' onclick="window.print()">Print Letter</div>
+                    <div class="row">
+                      <div class="col-md-2"><div class="btn btn-info"  onclick="window.print()">Print Letter</div></div>
+                      <div class="col-md-2"><div>{{ link_to_route('save_pdf', 'Save as PDF', array($player->id), array('class' => 'btn btn-info')) }}</div></div>
+                    </div>
+                    
                     <!-- <div style=' margin-left:-15px; ' onclick="window.print()">{{ link_to_route('players.edit', 'Print letter', array($player->id), array('class' => 'btn btn-info')) }}</div> -->
                    <!--  <form id="contactForm1">
                       <input type="text" id="letter" name="letter" data-id = "<?php $player->id ?>"/>
@@ -98,6 +109,9 @@
                     
 
                     @if(isset($player))
+                    <?php
+                      $payment_due_date = strtotime($player->payment_due_date);
+                    ?> 
                     <div id="letter_text">
                       <div class="center small_logo"><img src="images/bluechip_logo.png" alt="logo" /></div>
                     	<p><b>Dear {{ $player->first_name }}&nbsp;{{ $player->last_name }},</b></p>
@@ -125,13 +139,14 @@
                       <p>
                         The cost of the <b>Nike Blue Chip Lacrosse Camp</b> is $500.00. This payment is <b>non-refundable (in the case of an injury, 
                         a 50% refund will be given to those who present a note from a physician before November 1). </b>
-                        If we do not receive your payment by (insert date here), your spot will be forfeited and another player will be chosen to take your place. 
+                        If we do not receive your payment by 
+                        <b><?php echo date('m/d/Y', $payment_due_date);  ?></b>, your spot will be forfeited and another player will be chosen to take your place. 
                         Please enclose your confirmation letter along with a check made payable to Maryland Lacrosse Academy Inc. 
                         and mailed to the following address (regular US mail only, do not send mail signature required): 
                       </p>            
                       
                       <p style="padding-left:40px;"> <br>
-                      Jake Reed, <br>
+                      Nike Blue Chip Lacrosse Camp <br>
                       3302 Foster Ave. <br>
                       Baltimore MD 21224 
                       </p>
@@ -146,6 +161,34 @@
           						The Player is not selected
           					@endif	
                     
+                    <form id="letterForm" data-id="{{$player->id}}">
+                      
+                    </form>
+<!-- 
+                     {{ Form::open(array('url' => 'players', 'method' => 'POST', 'class' => 'form-horizontal',  'role' => 'form', 'parsley-validate')) }}
+                      <legend>Personal Information</legend>
+                      <div class="form-group">
+                        <label for="first_name" class="col-sm-4 control-label">letter</label>
+                        <div class="col-sm-8">
+                          {{ Form::text('letter', '', array( 'class' => 'form-control', 
+                            'parsley-trigger' => 'change', 'parsley-required' => 'true', 'parsley-minlength' => '2', 'parsley-validation-minlength' => '1')) }}
+                        </div>
+                      </div>
+
+                       <div class="form-group form-footer">
+                        <div class="col-sm-offset-4 col-sm-8">
+                          {{ Form::submit('Add player', array('class' => 'btn btn-primary'))}}
+
+                        </div>
+                      </div>
+                    {{ Form::close() }}
+                    <div class="span4" style="padding:30px;">
+                      @if($errors->any())
+                      <ul>
+                        {{ implode('', $errors->all('<li class="has-error">:message</li>')) }}
+                      </ul>
+                      @endif
+                    </div> -->
 
                   </div>
                   <!-- /tile body -->
@@ -185,4 +228,6 @@
 
 
 @stop
+
+
 

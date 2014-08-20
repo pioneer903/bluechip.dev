@@ -66,8 +66,16 @@ Route::get('print_player/{id}', array('as' => 'print_player', 'uses'=> 'PlayersC
     
 }));
 Route::get('letter/{id}', array('as' => 'letter', 'uses'=> 'PlayersController@letter', function($id){
-
 }));
+
+Route::get('save_pdf/{id}', array('as' => 'save_pdf', 'uses'=> 'PlayersController@save_pdf', function($id){
+}));
+
+Route::get('confirmation/{id}', array('as' => 'confirmation', 'uses'=> 'PlayersController@confirmation', function($id){
+}));
+
+
+
 // get the cuteness level of a puppy
 Route::get('puppies/{cutelevel}', function($cutelevel) 
 	{
