@@ -90,7 +90,7 @@ $(document).ready(function(){
                 
                 <!-- tile header -->
                   <div class="tile-header transparent">
-                    <h1>Edit player</h1>
+                    <h1>Confirmation</h1>
                   </div>
                   <!-- /tile header -->
 
@@ -341,12 +341,7 @@ $(document).ready(function(){
 
                 <legend>School and Team Information</legend>
                 
-                <div class="form-group">
-                  <label for="grad_year" class="col-sm-4 control-label">Camp Season</label>
-                  <div class="col-sm-8">
-                    {{ Form::select('season_id', $seasons_array, null, array('class'=>'chosen-select chosen-transparent form-control')) }}
-                  </div>
-                </div>
+               
                 <div class="form-group">
                   <label for="graduation_year" class="col-sm-4 control-label">graduation year</label>
                   <div class="col-sm-8">

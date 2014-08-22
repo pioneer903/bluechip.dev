@@ -2064,17 +2064,17 @@
     },
     {
         "name": "barryvdh/laravel-dompdf",
-        "version": "v0.4.5",
-        "version_normalized": "0.4.5.0",
+        "version": "v0.4.6",
+        "version_normalized": "0.4.6.0",
         "source": {
             "type": "git",
             "url": "https://github.com/barryvdh/laravel-dompdf.git",
-            "reference": "763811108f3f0c0bfcf3e65fb4e5fdf2b71c036e"
+            "reference": "9d45a1efc1a0669f502352f0fc6d08ce24efaad2"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/barryvdh/laravel-dompdf/zipball/763811108f3f0c0bfcf3e65fb4e5fdf2b71c036e",
-            "reference": "763811108f3f0c0bfcf3e65fb4e5fdf2b71c036e",
+            "url": "https://api.github.com/repos/barryvdh/laravel-dompdf/zipball/9d45a1efc1a0669f502352f0fc6d08ce24efaad2",
+            "reference": "9d45a1efc1a0669f502352f0fc6d08ce24efaad2",
             "shasum": ""
         },
         "require": {
@@ -2082,7 +2082,7 @@
             "illuminate/support": "~4.0",
             "php": ">=5.3.0"
         },
-        "time": "2014-08-13 17:25:14",
+        "time": "2014-08-20 13:05:36",
         "type": "library",
         "extra": {
             "branch-alias": {

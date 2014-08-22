@@ -29,6 +29,7 @@ Route::group(array('before' => 'auth'), function()
 
 });
 
+
 Route::get('contact', 'Pages@contact');
 Route::resource('users', 'UserController');
 
@@ -48,6 +49,7 @@ Route::get('about', 'HomeController@about');
 Route::get('thanks', 'HomeController@thanks');
 
 Route::post('ajax', 'PlayersController@ajax');
+Route::post('players/password', array('as'=>'players.password','uses'=>'PlayersController@password'));
 Route::post('ajaxLetter', 'PlayersController@ajaxLetter');
 Route::post('email', 'PlayersController@email');
 Route::post('sendemail', 'PlayersController@emailSend');
@@ -73,6 +75,20 @@ Route::get('save_pdf/{id}', array('as' => 'save_pdf', 'uses'=> 'PlayersControlle
 
 Route::get('confirmation/{id}', array('as' => 'confirmation', 'uses'=> 'PlayersController@confirmation', function($id){
 }));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

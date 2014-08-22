@@ -206,11 +206,10 @@ class PlayersController extends BaseController {
     if ($validation->passes()) {
       $player = Player::find($id);
       $player->update($input);
-      if (Auth::check($user)) {
-        // return Redirect::to('thanks')
-        //                 ->with('success', $player->first_name . ' ' . $player->last_name . '\'s profile was successfully updated');
+
+      if (Auth::user()->role_id==3) {
         return Redirect::route('players.confirmation', $id)
-                      ->with('success', $player->first_name . ' ' . $player->last_name . '\'s profile was successfully updated');
+                        ->with('success', $player->first_name . ' ' . $player->last_name . '\'s profile was successfully updated');
       }
       return Redirect::route('players.show', $id)
                       ->with('success', $player->first_name . ' ' . $player->last_name . '\'s profile was successfully updated');
@@ -262,7 +261,7 @@ class PlayersController extends BaseController {
       $t = Token::where('token', '=', $token)->first();
       $player_id = $t->player_id;
       $player = Player::find($player_id);
-      $t->delete();
+//      $t->delete();
 
       $seasons = Season::orderBy('id', 'desc')->get();
       $seasons_array = array();
@@ -270,7 +269,7 @@ class PlayersController extends BaseController {
         $seasons_array[$s->id] = $s->grad_year . ' ' . $s->season;
       }
 
-      return View::make('players.edit', compact('player'))
+      return View::make('players.password', compact('player', 'token'))
                       ->with('seasons_array', $seasons_array);
     } else {
       return Redirect::to('/');
@@ -335,7 +334,40 @@ class PlayersController extends BaseController {
   }
 
   public function confirmation($id){
+    $player = Player::find($id);
+    return View::make ('players.confirmation')
+      ->with('player', $player);
 
+  }
+
+  public function password() {
+    $token = Token::where('token', '=', Input::get('token'));
+    if ($token->count() > 0) {
+      $player = Player::find(Input::get('player_id'));
+      $user = new User();
+      $user->password = Hash::make(Input::get('password'));
+      $user->first_name = $player->first_name;
+      $user->last_name = $player->last_name;
+      $user->username = Input::get('username');
+      $user->role_id = 3;
+      $user->save();
+      $player->user_id = $user->id;
+      $player->save();
+      // $token->delete();
+      // dd($user->password);
+
+      if (Auth::attempt(array('username' => $user->username, 'password' => $user->password)))
+    {
+        echo 'The user is being remembered...';
+    }else{
+      // return Redirect::intended('players.edit');  
+      echo 'User is not authenticated';
+    }
+    }
+     // $user= User::where('username', '=', 'buha');
+     // $password = Input::get('password');
+     // dd($user);
+    
   }
 
 
