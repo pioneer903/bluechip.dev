@@ -85,7 +85,7 @@
 
                   <!-- tile header -->
 				<div class="tile-header transparent">
-					<h1>{{ $player->first_name }}&nbsp;{{ $player->last_name }}&rsquo;s Profile </h1>
+					<h1 class="capitalize"> {{$season->grad_year}} {{$season->season}} Nike Blue Chip {{ $player->graduation_year}} Camp</h1>
 
 					<div style='float:right; display:inline; padding:10px;'>{{Form::delete('players/'. $player->id, 'Delete', array('class' => 'btn-delete delete-form'))}}</div>
 					<div style='float:right; display:inline; padding:10px;'>{{ link_to_route('players.edit', 'Edit player', array($player->id), array('class' => 'btn btn-info')) }}</div>
@@ -192,12 +192,16 @@
 										<th colspan='2'><h3> School and Team Information</h3></th>
 									</tr>
 									<tr>
-										<td>Graduation Year</td>
+										<td>Camp Year</td>
 										<td>{{ $season->grad_year }} </td>
 									</tr>
 									<tr>
-										<td>Season</td>
+										<td>Camp Season</td>
 										<td>{{ $season->season}} </td>
+									</tr>
+									<tr>
+										<td>Graduation year</td>
+										<td>{{ $player->graduation_year}} </td>
 									</tr>
 									<tr>
 										<td>School Name</td>

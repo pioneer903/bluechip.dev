@@ -130,7 +130,7 @@ $(document).ready(function(){
                 </div>
 
 
-                <!-- <div class="form-group">
+                <div class="form-group">
                   <label for="email" class="col-sm-4 control-label">Email *</label>
                   <div class="col-sm-8">
                     {{ Form::text('email', $player->email, array('class' => 'form-control',
@@ -415,19 +415,29 @@ $(document).ready(function(){
                 </div>
 
                 <legend>Lacrosse Information</legend>
+                @if((Auth::user()->role_id)==1)
                 <div class="form-group">
                   <label for="position" class="col-sm-4 control-label">position *</label>
                   <div class="col-sm-8">
                     {{ Form::select('position', array(
                       ''  => 'Please Select', 
-                      'A' => 'A - Attack',
-                      'D' => 'D - Defence (Long Stick Middlefield)',
-                      'G' => 'G - Goalie',
-                      'M' => 'M - Middlefield',), $player->position,
+                      'A' => 'A - ATTACK',
+                      'D' => 'D - DEFENSE (Long Stick MIDFIELD)',
+                      'G' => 'G - GOALIE',
+                      'M' => 'M - MIDFIELD',), $player->position,
                       array('id' =>'positioin', 'class'=>'chosen-select chosen-transparent form-control',
                         'parsley-trigger' => 'change', 'parsley-required' => 'true', 'parsley-error-container' =>'position')) }}
                   </div>
                 </div>
+                @else
+                <div class="form-group">
+                  <label for="position" class="col-sm-4 control-label">position </label>
+                  <div class="col-sm-8">
+                    {{ Form::text('position', $player->sat_act, array('class' => 'form-control', 'readonly')) }}
+                  </div>
+                </div>
+                @endif
+
                 <div class="form-group">
                   <label class="col-sm-4 control-label" id="hand_label">Hand *</label>
                   <div class="col-sm-8">
@@ -581,7 +591,7 @@ $(document).ready(function(){
                     <p><b>5.  ARBITRATION.</b> In the event of any dispute between me and any of the Released Parties (defined above), such dispute shall be settled by administered by the American Arbitration Association under its Commercial Arbitration Rules (but not its Procedures for Large, Complex Commercial Disputes). The hearing shall be conducted in Portland, Oregon unless both parties consent to a different location. The decision of the arbitrator shall be final and binding upon all parties, and judgment upon the award rendered pursuant to such arbitration may be entered in any court of competent jurisdiction. </p>
                     <p><b>I have read this Participant Release, fully understand and agree to its terms, and understand that I am giving up substantial rights by signing it. I sign this Participant Release freely and voluntarily, without any inducement or coercion.</b></p>
 
-                  </div> -->
+                  </div> 
                   <div class="form-group hidden"><!--  Hidden field to submit the text above to the database -->
                     <label for="release_text" class="col-sm-4 control-label">nike release  </label>
                     <div class="col-sm-8">
@@ -590,7 +600,7 @@ $(document).ready(function(){
                     </div>
                   </div>
                   
-                  <!-- <div class="form-group">
+                  <div class="form-group">
                     <label class="col-sm-4 control-label" id ="i_certify_label">* I certify that: *</label>
                     <div class="col-sm-8" id="i_certify">
                       <div class="radio radio-transparent" >
@@ -668,7 +678,7 @@ $(document).ready(function(){
                       I may have for damages for personal or bodily injury, disability, death, loss or damage to person or property, whether arising 
                       from the negligence of any or all of the Released Parties or otherwise, to the fullest extent permitted by law.
                     </p>
-                  </div> -->
+                  </div>
                   <div class="form-group hidden"><!--  Hidden field to submit the text above to the database -->
                     <label for="release_text" class="col-sm-4 control-label">nike release  </label>
                     <div class="col-sm-8">
@@ -677,7 +687,7 @@ $(document).ready(function(){
                     </div>
                   </div>
 
-                <!-- <div class="form-group">
+                <div class="form-group">
                   <label for="release_parent_name" class="col-sm-4 control-label">Parent or guardian name and date *</label>
                   <div class="col-sm-4">
                     {{ Form::text('release_parent_name', $player->release_parent_name, array('class' => 'form-control',
@@ -701,7 +711,7 @@ $(document).ready(function(){
                     {{ Form::textarea('comments', $player->comments,
                      array('class' => 'form-control', 'id' => 'comments', 'placeholder' => 'Please indicate if any initial information was inforrect')) }}
                   </div>
-                </div> -->
+                </div>
 
 
                 <div class="form-group form-footer">

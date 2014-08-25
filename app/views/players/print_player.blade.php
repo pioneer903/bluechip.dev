@@ -6,27 +6,6 @@
 
 @section('content')
 <script type="text/javascript">
-   //      $(document).ready(function() {
-   //      	Detect browser and system
-   //      	var sBrowser, sSystem, sUsrAg = navigator.userAgent;
-
-			// if((sUsrAg.indexOf("Windows") > -1) && (sUsrAg.indexOf("Chrome") > -1)) {
-			//     sBrowser = "Chrome";
-			//     sSystem = "Windows"
-			// } else if (sUsrAg.indexOf("Safari") > -1) {
-			//     sBrowser = "Apple Safari";
-			// } else if (sUsrAg.indexOf("Opera") > -1) {
-			//     sBrowser = "Opera";
-			// } else if (sUsrAg.indexOf("Firefox") > -1) {
-			//     sBrowser = "Mozilla Firefox";
-			// } else if (sUsrAg.indexOf("MSIE") > -1) {
-			//     sBrowser = "Microsoft Internet Explorer";
-			// }
-
-			// console.log("You are using: " + sBrowser + " on " + sSystem);
-            
-   //      } );
-        
         
         $(document).on('submit', '.delete-form', function(){
             return confirm('Are you sure you want to delete this player?');
@@ -77,7 +56,7 @@
 
                   <!-- tile header -->
 				<div class="tile-header transparent ">
-					<h1>{{ $player->first_name }}&nbsp;{{ $player->last_name }}&rsquo;s Profile </h1>
+					<h1 class="capitalize"> {{$season->grad_year}} {{$season->season}} Nike Blue Chip {{ $player->graduation_year}} Camp</h1>
 					<div class="non-printable"  style='float:right;'>
 						<div style='float:right; display:inline; padding:10px;'>{{Form::delete('players/'. $player->id, 'Delete', array('class' => 'btn-delete delete-form'))}}</div>
 						<div style='float:right; display:inline; padding:10px;'>{{ link_to_route('players.edit', 'Edit player', array($player->id), array('class' => 'btn btn-info')) }}</div>
