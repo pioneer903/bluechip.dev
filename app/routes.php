@@ -20,7 +20,7 @@ Route::get('logout', 'AuthController@getLogout');
 
 
 // Secured Routes
-Route::group(array('before' => 'auth|check_role'), function()
+Route::group(array('before' => 'auth'), function()
 {
     Route::get('secret', 'HomeController@showSecret');
     Route::post('players/print', 'PlayersController@playerPrint');

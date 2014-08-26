@@ -573,7 +573,7 @@ $(document).ready(function(){
                           <p><b>I have read this Participant Release, fully understand and agree to its terms, and understand that I am giving up substantial rights by signing it. I sign this Participant Release freely and voluntarily, without any inducement or coercion.</b></p>
 
                         </div> 
-                        <div class="form-group hidden"><!--  Hidden field to submit the text above to the database -->
+                        <div class="form-group hidden">
                           <label for="release_text" class="col-sm-4 control-label">nike release  </label>
                           <div class="col-sm-8">
                             {{ Form::textarea('release_text', 'no text',
@@ -660,7 +660,7 @@ $(document).ready(function(){
                             from the negligence of any or all of the Released Parties or otherwise, to the fullest extent permitted by law.
                           </p>
                         </div>
-                        <div class="form-group hidden"><!--  Hidden field to submit the text above to the database -->
+                        <div class="form-group hidden">
                           <label for="release_text" class="col-sm-4 control-label">nike release  </label>
                           <div class="col-sm-8">
                             {{ Form::textarea('release_text_minor', 'no text',

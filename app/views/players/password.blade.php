@@ -106,16 +106,22 @@
                   <label for="username" class="col-sm-4 control-label">Username *</label>
                   <div class="col-sm-4">
                     {{ Form::text('username', null, array('class' => 'form-control', 
-                        'parsley-trigger' => 'change', 'parsley-required' => 'true', 'parsley-minlength' => '2', 'parsley-validation-minlength' => '1','required', 'placeholder'=>'Pick your username')) }}
+                        'parsley-trigger' => 'change', 'parsley-required' => 'true', 'parsley-minlength' => '2', 'parsley-validation-minlength' => '1','placeholder'=>'Pick your username')) }}
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="password" class="col-sm-4 control-label">Password *</label>
-                  <div class="col-sm-4">
-                    {{ Form::password('password', null, array( 'class' => 'form-control', 'parsley-trigger' => 'change', 'parsley-required' => 'true', 'parsley-minlength' => '2', 'parsley-validation-minlength' => '1')) }}
+                  <div class="col-sm-8">
+                    <input type="password" class="form-control" id="password" parsley-trigger="change" parsley-required="true" parsley-minlength="6" parsley-type="alphanum" parsley-validation-minlength="1">
                   </div>
                 </div>
 
+                <div class="form-group">
+                  <label for="passwordconfirm" class="col-sm-4 control-label">Password Confirm *</label>
+                  <div class="col-sm-8">
+                    <input type="password" class="form-control" id="passwordconfirm" parsley-trigger="change" parsley-required="true" parsley-minlength="6" parsley-type="alphanum" parsley-validation-minlength="1" parsley-equalto="#password">
+                  </div>
+                </div>
 
                 <div class="form-group form-footer">
                   <div class="col-sm-offset-4 col-sm-8">

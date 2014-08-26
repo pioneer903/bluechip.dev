@@ -169,12 +169,13 @@ class PlayersController extends BaseController {
     $input = Input::except(array('_method', '_token'));
     $user = User::where('username', '=', 'admin');
     $validation = Validator::make($input, Player::$rules_update);
+    
     if ($validation->passes()) {
       $player = Player::find($id);
       $player->update($input);
 
       if (Auth::user()->role_id == 3) {
-        return Redirect::route('players.confirmation', $id)
+        return Redirect::route('confirmation', $id)
                         ->with('success', $player->first_name . ' ' . $player->last_name . '\'s profile was successfully updated');
       }
       return Redirect::route('players.show', $id)

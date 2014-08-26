@@ -37,13 +37,13 @@ Route::filter('auth', function() {
   } else {
     $admin_list = array('players');
 //          dd(Route::current());
-    if (Route::current()->uri() == 'players/{players}/edit' and  Auth::user()->role_id != 1) {
-      $parameters = Route::current()->parameters();
-//      dd($parameters['players']!=Auth::user()->player->id);
-      if($parameters['players']!=Auth::user()->player->id){
-        return Redirect::to('players/' . Auth::user()->player->id . '/edit');
-      }
-    }
+//     if (Route::current()->uri() == 'players/{players}/edit' and  Auth::user()->role_id != 1) {
+//       $parameters = Route::current()->parameters();
+// //      dd($parameters['players']!=Auth::user()->player->id);
+//       if($parameters['players']!=Auth::user()->player->id){
+//         return Redirect::to('players/' . Auth::user()->player->id . '/edit');
+//       }
+//     }
     if (in_array(Route::current()->uri(), $admin_list) and Auth::user()->role_id != 1) {
       $user = User::find(Auth::user()->id);
       $player_id = $user->player->id;
