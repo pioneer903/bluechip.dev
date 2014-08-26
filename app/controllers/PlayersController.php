@@ -11,17 +11,8 @@ class PlayersController extends BaseController {
    * @return Response
    */
   public function index() {
-    //route get users
-    //return all the players
-    // $seasons = Player::all()->season;
-    // dd($seasons);
-
     $players = Player::all();
     $seasons = Season::all();
-    // $grad_year_list = Season::groupBy('grad_year')->get(array('grad_year'));
-    // $season_list = Season::groupBy('season')->lists('season', 'season');
-    // $grad_year = Season::groupBy('grad_year')->lists('grad_year', 'grad_year');
-
     return View::make('players.index')
                     ->with('players', $players)
                     ->with('seasons', $seasons);
@@ -31,7 +22,6 @@ class PlayersController extends BaseController {
     return "form submitted. The name was " . Input::get('user_name');
   }
 
- 
   /**
    * Show the form for creating a new resource.
    * GET /players/create
@@ -56,30 +46,10 @@ class PlayersController extends BaseController {
    * @return Response
    */
   public function store() {
-    //route post
-    // insert data into database
-    // return "Form submitted via store(). The name is ". Input::get('user_name');
     $input = Input::all();
-    // DB::insert('insert into posts ( title, body) values(?,?)', array ($input['title'], $input['body']));
-    // DB::table('posts')->insert(array(
-    // 		'title' => $input['title'],
-    // 		'body'	=> $input['body']
-    // 	));
-
-
-
     $v = Validator::make($input, Player::$rules, Player::$messages);
     if ($v->passes()) {
-      // DB::table('users')->insert(array(
-      // 	'first_name' => $input['first_name'],
-      // 	'last_name'	 => $input['last_name'],
-      // 	'birth_date' => $input['birth_date'],
-      // 	'height'	 => $input['height']
-      // ));
-
       $player = new Player;
-      // $player->birth_date = $input['birth_date'];
-      // $player->height = $input['height'];
       // $player->username = $input['username'];
       // $player->password = Hash::make($input['password']);
       // $player->password_confirmation = $input['password_confirmation'];
@@ -118,7 +88,6 @@ class PlayersController extends BaseController {
       // return Redirect::to('players/new')->with('success', 'You created new player ' . $player->username . ' successfully. Link '. $token)
       //   ->with('player', $player)
       //   ->with('token', $token);
-     
       // Session::put('success', 'You created new player ' . $player->username . ' successfully.');
       $season = Season::where('id', '=', $player->season_id)->first();
       return View::make('players.registration')
@@ -151,24 +120,21 @@ class PlayersController extends BaseController {
                     ->with('season', $season);
   }
 
-
-  public function print_player($id ) {
-    if($id == null){
+  public function print_player($id) {
+    if ($id == null) {
       return 'id is null';
-    }elseif(!is_null($id)){
+    } elseif (!is_null($id)) {
 
-    $player = Player::find($id);
+      $player = Player::find($id);
 
-    $season = Season::where('id', '=', $player->season_id)->first();
-    return View::make('players.print_player')
-                    ->with('player', $player)
-                    ->with('season', $season);
-
-    }else{
+      $season = Season::where('id', '=', $player->season_id)->first();
+      return View::make('players.print_player')
+                      ->with('player', $player)
+                      ->with('season', $season);
+    } else {
       return 'something else';
     }
   }
-
 
   /**
    * Show the form for editing the specified resource.
@@ -207,7 +173,7 @@ class PlayersController extends BaseController {
       $player = Player::find($id);
       $player->update($input);
 
-      if (Auth::user()->role_id==3) {
+      if (Auth::user()->role_id == 3) {
         return Redirect::route('players.confirmation', $id)
                         ->with('success', $player->first_name . ' ' . $player->last_name . '\'s profile was successfully updated');
       }
@@ -248,6 +214,7 @@ class PlayersController extends BaseController {
     $player->paid = Input::get('checked');
     $player->save();
   }
+
   public function ajaxLetter() {
 
     $player = Player::find(Input::get('id'));
@@ -287,32 +254,31 @@ class PlayersController extends BaseController {
   }
 
   public function emailSend() {
-    $headers='From: '. $_POST["from"].PHP_EOL;//added a From field in the email.blade.php for SMTP blocking server
+    $headers = 'From: ' . $_POST["from"] . PHP_EOL; //added a From field in the email.blade.php for SMTP blocking server
     $emails = Input::get('recepients');
     $emails = explode(',', $emails);
-    $subject=  Input::get('subject');
-    $body= Input::get('message');
+    $subject = Input::get('subject');
+    $body = Input::get('message');
     foreach ($emails as $email) {
-      $email=trim($email);
+      $email = trim($email);
       if (Player::where('email', '=', $email)->count() > 0) {
         $mailuser = Player::where('email', '=', $email)->first();
-         //For the server that blocks SMTP
+        //For the server that blocks SMTP
         mail($mailuser['email'], $subject, $body, $headers);
 
-         /* For the server that blocks SMTP*/
+        /* For the server that blocks SMTP */
         // Mail::queue('email.general', compact('body'), function($message) use ($mailuser,$subject) {
         //   $message
         //           ->to($mailuser['email'], $mailuser['first_name'] . ' ' . $mailuser['lastname'])
         //           ->subject($subject);
         // });
-      } 
-      else {
+      } else {
 
-         $email=  trim($email);
-         //For the server that blocks SMTP
-         mail($email, $subject, $body, $headers);
+        $email = trim($email);
+        //For the server that blocks SMTP
+        mail($email, $subject, $body, $headers);
 
-         /* For the server that allows SMTP*/
+        /* For the server that allows SMTP */
         // Mail::queue('email.general',compact('body'), function($message) use ($email, $subject) {
         //   $message
         //           ->to($email)
@@ -321,23 +287,56 @@ class PlayersController extends BaseController {
       }
     }
     return View::make('players.emailConfirmation')
-      ->with('emails', $emails)
-      ->with('subject', $subject)
-      ->with('body', $body);
+                    ->with('emails', $emails)
+                    ->with('subject', $subject)
+                    ->with('body', $body);
   }
 
-  public function save_pdf($id){
+  public function save_pdf($id) {
     $player = Player::find($id);
-    $pdf = PDF::loadHTML($player->letter);
-    return $pdf->download($player->first_name.' '.$player->last_name.'.pdf');
-
+    $pdf = PDF::loadHTML($player->letter)->save('files/' . $player->first_name . ' ' . $player->last_name . '.pdf');
+    return $pdf->download($player->first_name . ' ' . $player->last_name . '.pdf');
+    // return $pdf->download($player->first_name.' '.$player->last_name.'.pdf');
   }
 
-  public function confirmation($id){
-    $player = Player::find($id);
-    return View::make ('players.confirmation')
-      ->with('player', $player);
+  public function playerPrint() {
+//    dd(Input::all());
 
+    $html = <<<HTML
+  <html>
+      <head>
+            <style type="text/css">
+               @page teacher {
+  size: A4 portrait;
+  margin: 2cm;
+}
+
+.teacherPage {
+   page: teacher;
+   page-break-after: always;
+}
+
+            </style>
+      </head>
+      <body>
+HTML;
+
+
+    foreach (Player::whereIn('id', Input::get('players'))->get() as $player) {
+
+      $html .= '<div class="teacherPage">'
+              . $player->letter .
+              '</div>';
+    }
+
+    return PDF::loadHTML($html)->download('selected.pdf');
+    // return $pdf->download($player->first_name.' '.$player->last_name.'.pdf');
+  }
+
+  public function confirmation($id) {
+    $player = Player::find($id);
+    return View::make('players.confirmation')
+                    ->with('player', $player);
   }
 
   public function password() {
@@ -354,25 +353,14 @@ class PlayersController extends BaseController {
       $player->user_id = $user->id;
       $player->save();
       // $token->delete();
-      // dd($user->password);
 
-      if (Auth::attempt(array('username' => $user->username, 'password' => $user->password)))
-    {
-        echo 'The user is being remembered...';
-    }else{
-      // return Redirect::intended('players.edit');  
-      echo 'User is not authenticated';
+      if (Auth::attempt(array('username' => $user->username, 'password' => Input::get('password')))) {
+        return Redirect::intended('players/' . $player->id . '/edit');
+      } else {
+        // return Redirect::intended('players.edit');  
+        echo 'User is not authenticated';
+      }
     }
-    }
-     // $user= User::where('username', '=', 'buha');
-     // $password = Input::get('password');
-     // dd($user);
-    
   }
-
-
-  
-
-
 
 }

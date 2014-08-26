@@ -6,16 +6,17 @@
             	
                 @if ( Auth::guest() )
                     <li style="float:left">{{HTML::link('http://lacrossecamp.com/', 'Lacrosse Camp Home ')}}</li>
-                   <!--  <li style="float:left">{{ HTML::link('players', 'Manage Players')}} </li>
-                    <li style="float:left">{{ HTML::link('players/create', 'Add new Player')}} </li>
-                    <li style="float:left">{{ HTML::link('seasons/create', 'Add new season')}} </li> -->
                     <li style="float:right">{{ HTML::link('login', 'Login') }}</li>
                     <li style="float:right" class='user'>Hello <b> Guest</b> </li>
-                @else
+                @elseif((Auth::user()->role_id)==1)
                     <li style="float:left">{{HTML::link('http://lacrossecamp.com/', 'Lacrosse Camp Home ')}}</li>
                     <li style="float:left">{{ HTML::link('players', 'Manage Players')}} </li>
                     <li style="float:left">{{ HTML::link('players/create', 'Add new Player')}} </li>
                     <li style="float:left">{{ HTML::link('seasons/create', 'Add new season')}} </li>
+                    <li style="float:right">{{ HTML::link('logout', 'Logout') }}</li>
+                    <li style="float:right" class='user'>Hello <b>{{ Auth::user()->first_name}}</b> </li>
+                @elseif((Auth::user()->role_id)==3)
+                    <li style="float:left">{{HTML::link('http://lacrossecamp.com/', 'Lacrosse Camp Home ')}}</li>
                     <li style="float:right">{{ HTML::link('logout', 'Logout') }}</li>
                     <li style="float:right" class='user'>Hello <b>{{ Auth::user()->first_name}}</b> </li>
                 @endif
