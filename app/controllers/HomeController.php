@@ -19,12 +19,11 @@ class HomeController extends BaseController {
 	public function index()
 	{
 		
-		// $players = Player::all();
-	 //    $seasons = Season::all();
-	 //    return Redirect::to('players')
-	 //                    ->with('players', $players)
-	 //                    ->with('seasons', $seasons);
-		return View::make ('home.index');
+		$players = Player::all();
+	    $seasons = Season::all();
+	    return Redirect::to('players')
+	                    ->with('players', $players)
+	                    ->with('seasons', $seasons);
 		
 	}
 	public function postIndex()

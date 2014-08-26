@@ -100,6 +100,7 @@
             
           }
 
+          
       });
 
       
@@ -118,6 +119,10 @@
           $('.dataTables_filter input').attr("placeholder", "Search");
         }
       });
+       
+      //  $('#inlineEditDataTable tbody').on( 'click', 'tr', function () {
+      //     console.log( oTable02.row( this ).data() );
+      // } );
       
       $("#email").click(function(){
 
@@ -132,14 +137,6 @@
           }
         });
         $('.email_form').submit();
-      });
-
-      $("#print").click(function(){
-
-        $('#inlineEditDataTable tr.row_selected').each(function() {
-          $('form.print_all_players_form').append('<input type="hidden" name="players[]" value="'+$(this).attr('data-player')+'" />');
-        });
-        $('form.print_all_players_form').submit();
       });
 
 
