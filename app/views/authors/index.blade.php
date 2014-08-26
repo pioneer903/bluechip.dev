@@ -1,1 +1,0 @@
-C:\wamp\www\l4\app/views/authors/index.blade.php

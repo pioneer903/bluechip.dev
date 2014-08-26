@@ -10,7 +10,6 @@
 		<div class="container">
 			<div class="span4 well">
 				<legend>Add a player</legend>
-				<!-- {{ Form::open(array('url' => '/')) }} -->
 				{{ Form::open()}}
 				{{ Form::text('first_name', '', array('placeholder' => 'First Name')) }}<br>
 				{{ Form::text('last_name' , '', array('placeholder' => 'Last name')) }} <br>

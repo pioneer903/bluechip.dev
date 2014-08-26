@@ -37,8 +37,6 @@ $(document).ready(function(){
   $('[name="release_birth_date"]').val(birth_date);
   $('[name="release_emergency_contact"]').val(emergency_phone1);
  
-  console.log(emergency_phone1);
-  // release_text_minor_text
 
 });
 </script>
@@ -49,33 +47,18 @@ $(document).ready(function(){
     <!-- Wrap all page content here -->
     <div id="wrap">
 
-      
-
-
+    
       <!-- Make page fluid -->
       <div class="row">
         
 
-
-
-
-
-        
         <!-- Page content -->
         <div id="content" >
           
 
 
-
-
-
-
-
           <!-- content main container -->
           <div class="main">
-
-
-
 
             <!-- row -->
             <div class="row">
