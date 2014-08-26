@@ -192,4 +192,26 @@ return array(
 
 	),
 
+    'safe' => array(
+        '/',
+        'card/form_confirm',
+        'record/form_create',
+        'card/form_viewer',
+        'user/login',
+        'user/quick_login',
+        'user/register',
+        'info/how_it_works',
+        'info/pricing',
+        'info/faq',
+        'info/our_story',
+        'invite/accept',
+        'user/terms',
+        'user/privacy',
+        'email/send_email_queue',
+        'user/manual_login',
+        'checkin/',
+        'checkin/activate',
+        'system/list',
+    ),
+
 );

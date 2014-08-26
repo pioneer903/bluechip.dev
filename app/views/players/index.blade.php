@@ -5,17 +5,7 @@
 @endsection
 
 @section('content')
-
-    
-
-     <script type="text/javascript">
-        // $(document).ready(function() {
-        //     /* Initialize the Data Table */
-        //     dTable = $('#dataTables_players').dataTable();
-       
-      
-        // } );
-        
+    <script type="text/javascript">
         $(document).ready(function(){
           $('.paid').click(function(){
             var checked=0;
@@ -52,9 +42,6 @@
     <!-- Wrap all page content here -->
     <div id="wrap">
 
-      
-
-
       <!-- Make page fluid -->
       <div class="row">
         
@@ -82,8 +69,11 @@
                   <div class="tile-header transparent">
                     <h1>All Players </h1>
                     <button id='email' class="btn btn-primary disabled" style="margin-left: 20px;">Email Selected</button>
+                    <button id='print' class="btn btn-primary disabled " style="margin-left: 20px;">Print Selected</button>
                     <button id='select_button' class="btn btn-primary "  style="margin-left: 20px;">Select All</button>
+                   {{Form::open(array('url' => 'players/print', 'method' => 'POST','class'=>'print_all_players_form', 'target'=>"_blank"))}}
                    
+                   {{Form::close()}}
                   </div>
                   <!-- /tile header -->
 
@@ -111,58 +101,46 @@
                           </tr>
                         </thead>
                         <tbody>
-                    @foreach($seasons as $season)
-                    <?php  $player = $season->players()->get();
-                        $grad_year= $season->grad_year;
-                        $season_name = $season->season;
-                    ?>
-                            @foreach($player as $u)
-                            <tr>
-                                <td class="first_name capitalize">{{ $u->first_name }} </td>
-                                <td class="last_name capitalize">{{ $u->last_name }} </td>
-                                <td>{{ $u->phone }} </td>
-                                <td class="email">{{ $u->email }}</td>
-                                <td class="capitalize">{{ $u->graduation_year }} </td>
-                                <td class="capitalize">{{ $grad_year.' '.$season_name }} </td>
-                                <td>{{ $u->position }}</td>
-                                <td>{{ Form::checkbox('paid', null, $u->paid, array('class'=>'paid','data-id'=>$u->id))}} </td>
-                                <td>{{ link_to_route('print_player', 'Print player', array($u->id), array('class' => 'btn btn-info')) }}</td>
-                                <td>{{ link_to_route('players.show', 'View', array($u->id), array('class' => 'btn btn-info'))}} </td>
-                                <td>{{ link_to_route('players.edit', 'Edit', array($u->id), array('class' => 'btn btn-info')) }}</td>
-                                <!-- <td>{{ Form::open(array('method' =>'DELETE', 'route' => array('players.destroy', $u->id))) }}
-                                    {{ Form::submit('Delete', array('class' => 'btn btn-danger', 'onclick'=>'confirm("confirm delete")')) }} 
-                                    {{ Form::close() }}</td> -->
-                                <td>{{Form::delete('players/'. $u->id, 'Delete', array('class' => 'btn-delete delete-form'))}}</td> 
-                                <td class="player_id hidden">{{ $u->id}} </td>
-                            </tr>
+                          @foreach($seasons as $season)
+                            <?php  $player = $season->players()->get();
+                                $grad_year= $season->grad_year;
+                                $season_name = $season->season;
+                            ?>
+                              @foreach($player as $u)
+                              <tr data-player="{{$u->id}}">
+                                  <td class="first_name capitalize">{{ $u->first_name }} </td>
+                                  <td class="last_name capitalize">{{ $u->last_name }} </td>
+                                  <td>{{ $u->phone }} </td>
+                                  <td class="email">{{ $u->email }}</td>
+                                  <td class="capitalize">{{ $u->graduation_year }} </td>
+                                  <td class="capitalize">{{ $grad_year.' '.$season_name }} </td>
+                                  <td>{{ $u->position }}</td>
+                                  <td>{{ Form::checkbox('paid', null, $u->paid, array('class'=>'paid','data-id'=>$u->id))}} </td>
+                                  <td>{{ link_to_route('save_pdf', 'Print player', array($u->id), array('class' => 'btn btn-info print')) }}</td>
+                                  <td>{{ link_to_route('players.show', 'View', array($u->id), array('class' => 'btn btn-info'))}} </td>
+                                  <td>{{ link_to_route('players.edit', 'Edit', array($u->id), array('class' => 'btn btn-info ')) }}</td>
+                                  <td>{{Form::delete('players/'. $u->id, 'Delete', array('class' => 'btn-delete delete-form'))}}</td> 
+                                  <td class="player_id hidden">{{ $u->id}} </td>
+                              </tr>
+                              @endforeach
                             @endforeach
-                    @endforeach
-                </tbody>
+                        </tbody>
                       </table>
                     </div>
                     
                   </div>
                   <!-- /tile body -->
                 
-
-
                 </section>
                 <!-- /tile -->
                 {{Form::open(array('class'=>'email_form','url'=>'email','method'=>'POST'))}}
                 {{Form::close()}}
 
-
-
               </div>
               <!-- /col 12 -->
-
-
               
             </div>
             <!-- /row -->
-          
-
- 
 
           </div>
           <!-- /content container -->
@@ -173,14 +151,8 @@
       </div>
       <!-- Make page fluid-->
 
-
-
     </div>
     <!-- Wrap all page content end -->
-
-
-
-
 
 @stop
 

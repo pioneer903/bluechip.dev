@@ -214,9 +214,9 @@
                     {{ Form::select('position', array(
                       ''  => 'Select Position', 
                       'A' => 'A - Attack',
-                      'D' => 'D - Defense (Long Stick Middfield)',
+                      'D' => 'D - Defense (Long Stick Midfield)',
                       'G' => 'G - Goalie',
-                      'M' => 'M - Middfield',), null ,
+                      'M' => 'M - Midfield',), null ,
                       array('id' =>'positioin', 'class'=>'chosen-select chosen-transparent form-control')) }}
                   </div>
                 </div>
