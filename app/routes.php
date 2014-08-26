@@ -21,10 +21,19 @@ Route::get('logout', 'AuthController@getLogout');
 
 
 // Secured Routes
-Route::group(array('before' => 'auth'), function()
+Route::group(array('before' => 'auth|check_role'), function()
 {
     Route::get('secret', 'HomeController@showSecret');
+    Route::post('players/print', 'PlayersController@playerPrint');
     Route::resource('players', 'PlayersController');
+	// Route::get('players/{id}/edit', 'PlayersController@edit');
+	// Route::get('players/{id}', 'PlayersController@show');
+	// Route::get('players', 'PlayersController@index');
+	// if ((Auth::user()->role_id)==1){
+		
+	// }else{
+	// 	Redirect::to('/login');
+	// }
     Route::resource('seasons', 'SeasonsController');
 
 });
