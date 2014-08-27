@@ -29,11 +29,12 @@
                   //show that the username is available  
                   $('#create_usename').prop('disabled', false);  
                   $('#username').removeClass('duplicate-error');
-
+                  $('#parsley-4299956636969').addClass('hidden');
               }else{  
                   //show that the username is NOT available  
                   $('#create_usename').prop('disabled', true);  
                   $('#username').addClass('duplicate-error') ;
+                  $('#parsley-4299956636969').removeClass('hidden');
                   $('#parsley-4299956636969').append('<li class="required" style="display: list-item;">'+username + ' is not Available'+'</li>');
               }  
       });  
