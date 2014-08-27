@@ -11,8 +11,17 @@ class PlayersController extends BaseController {
    * @return Response
    */
   public function index() {
+    //route get users
+    //return all the players
+    // $seasons = Player::all()->season;
+    // dd($seasons);
+
     $players = Player::all();
     $seasons = Season::all();
+    // $grad_year_list = Season::groupBy('grad_year')->get(array('grad_year'));
+    // $season_list = Season::groupBy('season')->lists('season', 'season');
+    // $grad_year = Season::groupBy('grad_year')->lists('grad_year', 'grad_year');
+
     return View::make('players.index')
                     ->with('players', $players)
                     ->with('seasons', $seasons);
@@ -46,10 +55,30 @@ class PlayersController extends BaseController {
    * @return Response
    */
   public function store() {
+    //route post
+    // insert data into database
+    // return "Form submitted via store(). The name is ". Input::get('user_name');
     $input = Input::all();
+    // DB::insert('insert into posts ( title, body) values(?,?)', array ($input['title'], $input['body']));
+    // DB::table('posts')->insert(array(
+    // 		'title' => $input['title'],
+    // 		'body'	=> $input['body']
+    // 	));
+
+
+
     $v = Validator::make($input, Player::$rules, Player::$messages);
     if ($v->passes()) {
+      // DB::table('users')->insert(array(
+      // 	'first_name' => $input['first_name'],
+      // 	'last_name'	 => $input['last_name'],
+      // 	'birth_date' => $input['birth_date'],
+      // 	'height'	 => $input['height']
+      // ));
+
       $player = new Player;
+      // $player->birth_date = $input['birth_date'];
+      // $player->height = $input['height'];
       // $player->username = $input['username'];
       // $player->password = Hash::make($input['password']);
       // $player->password_confirmation = $input['password_confirmation'];
@@ -169,7 +198,6 @@ class PlayersController extends BaseController {
     $input = Input::except(array('_method', '_token'));
     $user = User::where('username', '=', 'admin');
     $validation = Validator::make($input, Player::$rules_update);
-    
     if ($validation->passes()) {
       $player = Player::find($id);
       $player->update($input);
@@ -221,6 +249,17 @@ class PlayersController extends BaseController {
     $player = Player::find(Input::get('id'));
     $player->letter = Input::get('letter');
     $player->save();
+  }
+
+  public function ajaxCheckUsername(){
+    $username = Input::get('username');
+    $user = User::where('username', '=', $username)->count();
+    if($user>0){
+      echo 0;
+    }
+    else{
+      echo 1;
+    }
   }
 
   public function link($token) {
@@ -353,7 +392,7 @@ HTML;
       $user->save();
       $player->user_id = $user->id;
       $player->save();
-      // $token->delete();
+      $token->delete();
 
       if (Auth::attempt(array('username' => $user->username, 'password' => Input::get('password')))) {
         return Redirect::intended('players/' . $player->id . '/edit');

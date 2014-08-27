@@ -14,33 +14,32 @@
   }
   .bg-dark{background-color: rgba(0, 0, 0, 0.3); border-radius:4px; padding:15px; margin-bottom: 15px}
   input[type="password"]{width:100%;}
+  .duplicate-error{background-color: rgba(255, 74, 67, 0.2) !important;
+      border: 1px solid rgba(255, 74, 67, 0.5) !important; }
 </style>
 <script type="text/javascript">
   $(document).ready(function() {
+    $('#username').blur(function(){
+      var username =  $(this).val();
+      //use ajax to run the check  
+      $.post("{{URL::to('ajaxCheckUsername')}}", { username: username },  
+          function(result){  
+              //if the result is 1  
+              if(result == 1){  
+                  //show that the username is available  
+                  $('#create_usename').prop('disabled', false);  
+                  $('#username').removeClass('duplicate-error');
 
-    var release_text = $('#release_text').html();
-    $('#release_text_form').val(release_text);
+              }else{  
+                  //show that the username is NOT available  
+                  $('#create_usename').prop('disabled', true);  
+                  $('#username').addClass('duplicate-error') ;
+                  $('#parsley-4299956636969').append('<li class="required" style="display: list-item;">'+username + ' is not Available'+'</li>');
+              }  
+      });  
 
-    var release_text_minor = $('#release_text_minor').html();
-    $('#release_text_minor_form').val(release_text_minor);
-
-    var street = $('[name="street"]').val();
-    var city = $('[name="city"]').val();
-    var state = $('[name="state"]').val();
-    var email = $('[name="email"]').val();
-    var phone = $('[name="phone"]').val();
-    var birth_date = $('[name="birth_date"]').val();
-    var emergency_phone1 = $('[name="emergency_phone1"]').val();
-
-    $('[name="release_address"]').val(street + ', ' + city + ', ' + state);
-    $('[name="release_email"]').val(email);
-    $('[name="release_phone"]').val(phone);
-    $('[name="release_birth_date"]').val(birth_date);
-    $('[name="release_emergency_contact"]').val(emergency_phone1);
-
-    console.log(emergency_phone1);
-    // release_text_minor_text
-
+    });
+      
   });
 </script>
 <!-- Preloader -->
@@ -49,43 +48,19 @@
 
 <!-- Wrap all page content here -->
 <div id="wrap">
-
-
-
-
   <!-- Make page fluid -->
   <div class="row">
-
-
-
-
-
-
 
     <!-- Page content -->
     <div id="content" >
 
-
-
-
-
-
-
-
       <!-- content main container -->
       <div class="main">
-
-
-
-
         <!-- row -->
         <div class="row">
 
           <!-- col 8 -->
           <div class="col-md-8 col-md-offset-2">
-
-
-
             <!-- tile -->
             <section class="tile color transparent">
 
@@ -105,27 +80,29 @@
                 <div class="form-group">
                   <label for="username" class="col-sm-4 control-label">Username *</label>
                   <div class="col-sm-4">
-                    {{ Form::text('username', null, array('class' => 'form-control', 
-                        'parsley-trigger' => 'change', 'parsley-required' => 'true', 'parsley-minlength' => '2', 'parsley-validation-minlength' => '1','placeholder'=>'Pick your username')) }}
+                    {{ Form::text('username', null, array('class' => 'form-control', 'id' =>'username',
+                        'parsley-trigger' => 'change', 'parsley-required' => 'true', 'parsley-minlength' => '2', 'parsley-validation-minlength' => '1','required', 'placeholder'=>'Pick your username')) }}
+                        <ul id="parsley-4299956636969" class="parsley-error-list"></ul>
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="password" class="col-sm-4 control-label">Password *</label>
-                  <div class="col-sm-8">
-                    <input type="password" class="form-control" id="password" parsley-trigger="change" parsley-required="true" parsley-minlength="6" parsley-type="alphanum" parsley-validation-minlength="1">
+                  <div class="col-sm-4">
+                    <input type="password" class="form-control" id="password" name="password" parsley-trigger="change" parsley-required="true" parsley-minlength="6" parsley-type="alphanum" parsley-validation-minlength="1">
                   </div>
                 </div>
 
                 <div class="form-group">
                   <label for="passwordconfirm" class="col-sm-4 control-label">Password Confirm *</label>
-                  <div class="col-sm-8">
+                  <div class="col-sm-4">
                     <input type="password" class="form-control" id="passwordconfirm" parsley-trigger="change" parsley-required="true" parsley-minlength="6" parsley-type="alphanum" parsley-validation-minlength="1" parsley-equalto="#password">
                   </div>
                 </div>
 
+
                 <div class="form-group form-footer">
                   <div class="col-sm-offset-4 col-sm-8">
-                    {{ Form::submit('Update password', array('class' => 'btn btn-primary'))}}
+                    {{ Form::submit('Create Username', array('class' => 'btn btn-primary', 'id' =>'create_usename'))}}
                   </div>
                 </div>
                 {{ Form::close() }}

@@ -77,6 +77,7 @@ body #content .tile-body.transparent-black .form-control[readonly]{
                     <div class="row non-printable"  style="padding:40px;">
                       <div class="col-md-2"><div class="btn btn-info"  onclick="window.print()">Print </div></div>
                       <!-- <div class="col-md-2"><div>{{ link_to_route('save_pdf', 'Save as PDF', array($player->id), array('class' => 'btn btn-info')) }}</div></div> -->
+                      <div class="col-md-2">{{ link_to_route('players.edit', 'Edit', array($player->id), array('class' => 'btn btn-info ')) }}</div>
                     </div>
                   </div>
                   <!-- /tile body -->

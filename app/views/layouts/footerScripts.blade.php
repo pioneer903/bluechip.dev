@@ -60,10 +60,10 @@
         num_rows = $('#inlineEditDataTable tr.row_selected').length;
         if(num_rows > 0){
           $('#email').removeClass('disabled');
-          $('#print').removeClass('disabled');
+          console.log(num_rows);
         }else{
           $('#email').addClass('disabled');
-          $('#print').addClass('disabled');
+          console.log(num_rows);
         }
 
         // FadeIn/Out delete rows button
@@ -74,6 +74,56 @@
         }
       });
 
+
+      // $("#select_all").click(function(){
+      //   $("#inlineEditDataTable tbody tr").addClass('row_selected'); 
+      //   $('#select_all').text('Deselect all');
+      // });
+
+      $("#select_button").click(function(){
+          if ($(this).text() == 'Deselect All'){
+            
+            $(this).text('Select All');
+            $("#inlineEditDataTable tbody tr").removeClass('row_selected');
+
+            
+          }else{
+            $("#inlineEditDataTable tbody tr").addClass('row_selected');
+            $(this).text('Deselect All');
+          }
+          num_rows = $('#inlineEditDataTable tr.row_selected').length;
+          if(num_rows > 0){
+            $('#email').removeClass('disabled');
+            
+          }else{
+            $('#email').addClass('disabled');
+            
+          }
+
+          
+      });
+
+      
+      var oTable02 = $('#inlineEditDataTable').dataTable({
+        "sDom":
+          "R<'row'<'col-md-6'l><'col-md-6'f>r>"+
+          "t"+
+          "<'row'<'col-md-4 sm-center'i><'col-md-4'><'col-md-4 text-right sm-center'p>>",
+        "oLanguage": {
+          "sSearch": ""
+        },
+        "aoColumnDefs": [
+          { 'bSortable': false, 'aTargets': [ "no-sort" ] }
+        ],
+        "fnInitComplete": function(oSettings, json) { 
+          $('.dataTables_filter input').attr("placeholder", "Search");
+        }
+      });
+       
+      //  $('#inlineEditDataTable tbody').on( 'click', 'tr', function () {
+      //     console.log( oTable02.row( this ).data() );
+      // } );
+      
       $("#email").click(function(){
 
         $('#inlineEditDataTable tr.row_selected').each(function() {
@@ -93,53 +143,14 @@
 
         $('#inlineEditDataTable tr.row_selected').each(function() {
           $('form.print_all_players_form').append('<input type="hidden" name="players[]" value="'+$(this).attr('data-player')+'" />');
+//          var url = $(this).find('.print').attr('href');
+//          console.log(url);
+//          window.open(url);
+         
         });
         $('form.print_all_players_form').submit();
       });
 
-
-      $("#select_button").click(function(){
-          if ($(this).text() == 'Deselect All'){
-            
-            $(this).text('Select All');
-            $("#inlineEditDataTable tbody tr").removeClass('row_selected');
-
-            
-          }else{
-            $("#inlineEditDataTable tbody tr").addClass('row_selected');
-            $(this).text('Deselect All');
-          }
-          num_rows = $('#inlineEditDataTable tr.row_selected').length;
-          if(num_rows > 0){
-            $('#email').removeClass('disabled');
-            $('#print').removeClass('disabled');
-            
-          }else{
-            $('#email').addClass('disabled');
-            $('#print').addClass('disabled');
-            
-          }
-
-      });
-
-      
-      var oTable02 = $('#inlineEditDataTable').dataTable({
-        "sDom":
-          "R<'row'<'col-md-6'l><'col-md-6'f>r>"+
-          "t"+
-          "<'row'<'col-md-4 sm-center'i><'col-md-4'><'col-md-4 text-right sm-center'p>>",
-        "oLanguage": {
-          "sSearch": ""
-        },
-        "aoColumnDefs": [
-          { 'bSortable': false, 'aTargets': [ "no-sort" ] }
-        ],
-        "fnInitComplete": function(oSettings, json) { 
-          $('.dataTables_filter input').attr("placeholder", "Search");
-        }
-      });
-      
-      
 
 
 

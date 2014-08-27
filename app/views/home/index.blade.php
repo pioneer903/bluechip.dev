@@ -33,7 +33,7 @@
 
                   <!-- tile header -->
                   <div class="tile-header transparent">
-					        <h1>Welcome to Nike Blue Chip Lacrosse</h1>
+					<h1>Welcome to Nike Blue Chip Lacrosse</h1>
                     
                   </div>
                   <!-- /tile header -->
@@ -41,20 +41,27 @@
                   <!-- tile body -->
                   <div class="tile-body color transparent-black rounded-corners">
                     <p style="text-align: center">
-        						<img src="images/bluechip_logo.png" alt="logo" class="logo"/>
-        					</p>
-					       @if ( Auth::guest() )
-                  <h2> Please {{ HTML::link('login', 'Log in') }}</h2> 
-                  @else
-                  <h2>Please select the actions above</h2>
-
-                  @endif
+						<img src="images/bluechip_logo.png" alt="logo" class="logo"/>
+					</p>
+					
+					
+					@if ( Auth::guest() )
+						<h2> Please {{ HTML::link('login', 'Log in') }}</h2> 
+				    @else
+				        <h2>Please select the actions above</h2>
+				        
+				    @endif
 				
                   </div>
                   <!-- /tile body -->
                 
+
+
                 </section>
                 <!-- /tile -->
+
+
+
 
 
               </div>
@@ -69,6 +76,10 @@
 
           </div>
           <!-- /content container -->
+
+
+
+
 
 
         </div>

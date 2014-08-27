@@ -37,7 +37,7 @@
     <!-- Success-Messages -->
     
     @if ($message = Session::get('success'))
-    <div class="alert alert-success alert-block">
+    <div class="alert alert-success alert-block non-printable">
       <button type="button" class="close" data-dismiss="alert">&times;</button>
       <h4>Success</h4>
       {{{ $message }}}

@@ -25,6 +25,9 @@
 					<tr>
 						<th>First Name</th>
 						<th>Last Name</th>
+						<th>Birth Date</th>
+						<th>Height</th>
+						<th>User ID</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -32,6 +35,9 @@
 					<tr>
 						<td>{{ $u->first_name }} </td>
 						<td>{{ $u->last_name }} </td>
+						<td>{{ $u->birth_date }} </td>
+						<td>{{ $u->height }} </td>
+						<td>{{ $u->id }} </td>
 						<td><a href="/">Edit </td></a>
 					</tr>
 					@endforeach

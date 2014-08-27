@@ -20,12 +20,15 @@ Route::get('logout', 'AuthController@getLogout');
 
 
 // Secured Routes
-Route::group(array('before' => 'auth'), function()
+Route::group(array('before' => 'auth|check_role'), function()
 {
     Route::get('secret', 'HomeController@showSecret');
     Route::post('players/print', 'PlayersController@playerPrint');
     Route::resource('players', 'PlayersController');
     Route::resource('seasons', 'SeasonsController');
+    Route::get('create', function(){
+		return View::make('home.create');
+	});
 
 });
 
@@ -36,25 +39,34 @@ Route::resource('users', 'UserController');
 Route::get('/register', 'UserController@showUserRegistration');
 Route::post('/register', 'UserController@saveUser');
 
+Route::resource('posts', 'PostsController');
+Route::resource('phones', 'PhonesController');
 
 Route::get('/', 'HomeController@index');
 Route::get('about', 'HomeController@about');
 Route::get('thanks', 'HomeController@thanks');
 
 Route::post('ajax', 'PlayersController@ajax');
-Route::post('players/password', array('as'=>'players.password','uses'=>'PlayersController@password'));
 Route::post('ajaxLetter', 'PlayersController@ajaxLetter');
+Route::post('ajaxCheckUsername', 'PlayersController@ajaxCheckUsername');
+Route::post('players/password', array('as'=>'players.password','uses'=>'PlayersController@password'));
+
 Route::post('email', 'PlayersController@email');
 Route::post('sendemail', 'PlayersController@emailSend');
 
 Route::get('link/{token}', 'PlayersController@link');
-Route::get('print_player/{id}', array('as' => 'print_player', 'uses'=> 'PlayersController@print_player', function($id){}));
-Route::get('letter/{id}', array('as' => 'letter', 'uses'=> 'PlayersController@letter', function($id){}));
 
-Route::get('save_pdf/{id}', array('as' => 'save_pdf', 'uses'=> 'PlayersController@save_pdf', function($id){}));
+Route::get('print_player/{id}', array('as' => 'print_player', 'uses'=> 'PlayersController@print_player', function($id){
+}));
+Route::get('letter/{id}', array('as' => 'letter', 'uses'=> 'PlayersController@letter', function($id){
+}));
 
-Route::get('confirmation/{id}', array('as' => 'confirmation', 'uses'=> 'PlayersController@confirmation', function($id){}));
-Route::get('create', function(){
-	return View::make('home.create');
+Route::get('save_pdf/{id}', array('as' => 'save_pdf', 'uses'=> 'PlayersController@save_pdf', function($id){
+}));
 
+Route::get('confirmation/{id}', array('as' => 'confirmation', 'uses'=> 'PlayersController@confirmation', function($id){
+}));
+
+Event::listen('laravel.query', function ($sql){
+	var_dump($sql);
 });
