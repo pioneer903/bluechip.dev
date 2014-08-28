@@ -29,7 +29,7 @@
 
     <script>
     $(function(){
-
+      
       // Add custom class to pagination div
       $.fn.dataTableExt.oStdClasses.sPaging = 'dataTables_paginate paging_bootstrap paging_custom';
 
@@ -105,6 +105,10 @@
 
       
       var oTable02 = $('#inlineEditDataTable').dataTable({
+        "processing": true,
+        "serverSide": true,
+        "ajax": "{{URL::to('players/deferLoading')}}",
+        "deferLoading": true,
         "sDom":
           "R<'row'<'col-md-6'l><'col-md-6'f>r>"+
           "t"+
