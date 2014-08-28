@@ -113,7 +113,7 @@
 	                      <div class="tab-pane" id="tab1">
 
 	                        <form class="form-horizontal form1" role="form" >
-	                        	<table class="table table-striped table-bordered table-hover">
+	                        	<table class="table table-striped table-bordered table-hover" id="players_information">
 									<tr>
 										<th colspan='2'><h3>Personal Information</h3></th>
 									</tr>

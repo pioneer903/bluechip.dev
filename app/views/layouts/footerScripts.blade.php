@@ -147,6 +147,7 @@
 
         $('#inlineEditDataTable tr.row_selected').each(function() {
           $('form.print_all_players_form').append('<input type="hidden" name="players[]" value="'+$(this).attr('data-player')+'" />');
+          
 //          var url = $(this).find('.print').attr('href');
 //          console.log(url);
 //          window.open(url);

@@ -90,8 +90,8 @@
 										<div><h3>Personal Information</h3></div>
 									</div>
 									<div class="tr">
-										<div class="td">First Name</div>
-										<div class="td">{{ $player->first_name }} </div>
+										<div class="td col-md-3">First Name</div>
+										<div class="td col-md-4">{{ $player->first_name }} </div>
 									</div>
 									<div class="tr">
 										<div class="td">Last Name</div>

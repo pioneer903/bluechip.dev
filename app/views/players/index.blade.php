@@ -82,7 +82,7 @@
                   <div class="tile-header transparent">
                     <h1>All Players </h1>
                     <button id='email' class="btn btn-primary disabled" style="margin-left: 20px;">Email Selected</button>
-                    <!-- <button id='print' class="btn btn-primary " style="margin-left: 20px;">Print Selected</button> -->
+                    <button id='print' class="btn btn-primary " style="margin-left: 20px;">Print Selected</button>
                     <button id='select_button' class="btn btn-primary "  style="margin-left: 20px;">Select All</button>
                    {{Form::open(array('url' => 'players/print', 'method' => 'POST','class'=>'print_all_players_form', 'target'=>"_blank"))}}
                    

@@ -380,22 +380,22 @@ class PlayersController extends BaseController {
   }
 
   public function playerPrint() {
-//    dd(Input::all());
-
     $html = <<<HTML
   <html>
       <head>
             <style type="text/css">
-               @page teacher {
-  size: A4 portrait;
-  margin: 2cm;
-}
-
-.teacherPage {
-   page: teacher;
-   page-break-after: always;
-}
-
+               @page player {
+                  size: A4 portrait;
+                  margin: 2cm;
+                }
+                .playerPage {
+                   page: teacher;
+                   page-break-after: always;
+                }
+                table h3{text-align:left; margin-bottom: 5px;}
+                table td.border {border: 1px solid gray;}
+                .bold{font-weight:bold;}
+                .capitalize{text-transform:capitalize;}
             </style>
       </head>
       <body>
@@ -403,14 +403,210 @@ HTML;
 
 
     foreach (Player::whereIn('id', Input::get('players'))->get() as $player) {
+      $season = Season::where('id', '=', $player->season_id)->first();
+      
+      $html .= '<style>
+                  </style>
+                <div class="playerPage">
+                  
+                  <table id="players_information">
+                    <tr>
+                      <th colspan="5"><h3>Personal Information</h3></th>
+                    </tr>
+                    <tr>
+                      <td>First Name</td>
+                      <td  class="bold">' . $player->first_name . ' </td>
+                      <td class="divider"></td>
+                      <td>Last Name</td>
+                      <td class="bold">' . $player->last_name . ' </td>
+                    </tr>
+                    <tr>
+                      <td>Email</td>
+                      <td class="bold"><a href="mailto:' . $player->email . '?Subject=Contact%20from%20Blue%20Chip" target="_top">' . $player->email . ' </a></td>
+                      <td class="divider"></td>
+                      <td>Phone</td>
+                      <td class="bold">' . $player->phone. ' </td>
+                    </tr>
+                    <tr>
+                      <td>Street Address</td>
+                      <td class="bold">' . $player->street. ' </td>
+                      <td></td>
+                      <td>City</td>
+                      <td class="bold">' . $player->city. ' </td>
+                    </tr>
+                    <tr>
+                      <td>State</td>
+                      <td class="bold">' . $player->state. ' </td>
+                      <td></td>
+                      <td>Zip Code</td>
+                      <td class="bold">' . $player->zip. ' </td>
+                    </tr>
+                    <tr>
+                      <td>Date of Birth</td>
+                      <td class="bold">'. date("m/d/Y", strtotime($player->birth_date)) .'</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>Height</td>
+                      <td class="bold">' . $player->height . ' </td>
+                      <td></td>
+                      <td>Weight</td>
+                      <td class="bold">' . $player->weight. ' </td>
+                    </tr>
 
-      $html .= '<div class="teacherPage">'
-              . $player->letter .
-              '</div>';
+                    <tr>
+                      <th colspan="5"><h3>Parents/Guardians Information</h3></th>
+                    </tr>
+                    <tr>
+                      <td>Parent/Guardian 1: Name</td>
+                      <td class="bold">' . $player->parent1_name. ' </td>
+                      <td></td>
+                      <td>Email</td>
+                      <td><a href="mailto:' . $player->parent1_email . '?Subject=Contact%20from%20Blue%20Chip" target="_top">' . $player->parent1_email. ' </a></td>
+                    </tr>
+                    <tr>
+                      <td>Parent/Guardian 2: Name</td>
+                      <td class="bold">' . $player->parent2_name. ' </td>
+                      <td></td>
+                      <td> Email</td>
+                      <td><a href="mailto:' . $player->parent2_email . '?Subject=Contact%20from%20Blue%20Chip" target="_top">' . $player->parent2_email. ' </a></td>
+                    </tr>
+                  </table>
+
+                  
+                  <table>
+                    <tr>
+                      <th colspan="5"><h3> School and Team Information</h3></th>
+                    </tr>
+                    <tr>
+                      <td>Camp Year and Season</td>
+                      <td class="bold capitalize" colspan="3">' . $season->grad_year  . ' ' . $season->season . '</td>
+                    </tr>
+                    
+                    <tr>
+                      <td>Graduation year</td>
+                      <td class="bold capitalize">' . $player->graduation_year. ' </td>
+                      <td></td>
+                      <td>School Name</td>
+                      <td class="bold">' . $player->school_name. ' </td>
+                    </tr>
+                    <tr>
+                      <td>School Coach</td>
+                      <td class="bold">' . $player->school_coach. ' </td>
+                      <td></td>
+                      <td>School Coach Phone</td>
+                      <td class="bold">' . $player->school_coach_phone. ' </td>
+                    </tr>
+                    <tr>
+                      <td>Club Team</td>
+                      <td class="bold">' . $player->club_team. ' </td>
+                      <td></td>
+                      <td>Club Coach</td>
+                      <td class="bold">' . $player->club_coach. ' </td>
+                    </tr>
+                    <tr>
+                      <td>Club Coach Phone</td>
+                      <td class="bold">' . $player->club_coach_phone. ' </td>
+                      <td></td>
+                      <td>GPA</td>
+                      <td class="bold">' . $player->gpa. ' </td>
+                    </tr>
+                   
+                    <tr>
+                      <td>PSAT</td>
+                      <td class="bold">' . $player->psat. ' </td>
+                      <td></td>
+                      <td>SAT/ACT</td>
+                      <td class="bold">' . $player->sat_act. ' </td>
+                    
+                    </tr>
+                  </table>
+
+                  <table>
+                    <tr>
+                      <th colspan="5"><h3> Lacrosse Information</h3></th>
+                    </tr>
+                    <tr>
+                      <td>Position</td>
+                      <td class="bold">' . $player->position . ' </td>
+                      <td></td>
+                      <td>Hand</td>
+                      <td class="bold">' . $player->hand . ' </td>
+                    </tr>
+                    <tr>
+                      <td>Faceoff</td>
+                      <td class="bold">' . $player->faceoff . ' </td>
+                      <td></td>
+                      <td>LSM</td>
+                      <td class="bold">' . $player->lsm . ' </td>
+                    </tr>
+                    <tr>
+                      <td>Lacrosse Honors</td>
+                      <td class="bold">' . $player->lacrosse_honors . ' </td>
+                      <td></td>
+                      <td>Other Sports</td>
+                      <td class="bold">' . $player->other_sports . ' </td>
+                    </tr>
+                    <tr>
+                      <td>I have committed to</td>
+                      <td colspan="4" class="bold">' . $player->committed_to. ' </td>
+                    </tr>
+                  </table>
+
+                  <table>
+                    <tr>
+                      <th colspan="2"><h3> Medical Information</h3></th>
+                    </tr>
+                    <tr>
+                      <td>Health Insurance Company Name</td>
+                      <td class="bold">' . $player->insurance_company. ' </td>
+                    </tr>
+                    <tr>
+                      <td>Health Insurance Policy</td>
+                      <td class="bold">' . $player->insurance_policy . ' </td>
+                    </tr>
+                    <tr>
+                      <td>Health Insurance Effective Date</td>
+                      <td class="bold">'. date("m/d/Y", strtotime($player->insurance_date)). '</td>
+                    </tr>
+                    <tr>
+                      <td>Player Signature</td>
+                      <td class="bold">' . $player->player_signature_medical . ' </td>
+                    </tr>
+                    <tr>
+                      <td>Player Signature Date</td>
+                      <td class="bold">' . date("m/d/Y", strtotime($player->player_signature_date_medical)). '</td>
+                    </tr>
+                    <tr>
+                      <td>Parent/Guardian Signature</td>
+                      <td class="bold">' . $player->parent_signature_medical . ' </td>
+                    </tr>
+                    <tr>
+                      <td>Parent/Guardian Signature Date</td>
+                      <td class="bold">' . date("m/d/Y", strtotime($player->parent_signature_date_medical)). '</td>
+
+                    </tr>
+                    <tr>
+                      <td>Emergency Phone #1 </td>
+                      <td class="bold">' . $player->emergency_phone1 . ' </td>
+                    </tr>
+                    <tr>
+                      <td>Emergency Phone #2 </td>
+                      <td class="bold">' . $player->emergency_phone2 . ' </td>
+                    </tr>
+                    <tr>
+                      <td>Medical Conditions</td>
+                      <td class="bold">' . $player->medical_conditions. ' </td>
+                    </tr>
+                  </table>  
+
+                </div>';
     }
 
-    return PDF::loadHTML($html)->download('selected.pdf');
-    // return $pdf->download($player->first_name.' '.$player->last_name.'.pdf');
+    // return PDF::loadHTML($html)->download('selected.pdf');
+    return PDF::loadHTML($html)->stream('selected-players-'. date('j/F/Y h:i:s A').'pdf');
+    
   }
 
   public function confirmation($id) {
