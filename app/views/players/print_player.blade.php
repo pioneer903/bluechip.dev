@@ -163,11 +163,11 @@
 									</div>
 									<div class="tr">
 										<div class="td">Graduation Year</div>
-										<div class="td">{{ $season->grad_year }} </div>
+										<div class="td capitalize">{{ $player->graduation_year }} </div>
 									</div>
-									<div class="tr">
-										<div class="td">Season</div>
-										<div class="td">{{ $season->season}} </div>
+									<div class="tr ">
+										<div class="td">Camp Season</div>
+										<div class="td capitalize">{{ $season->grad_year}} {{ $season->season}} </div>
 									</div>
 									<div class="tr">
 										<div class="td">School Name</div>

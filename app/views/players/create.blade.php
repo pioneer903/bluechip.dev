@@ -200,10 +200,11 @@
                   <label for="graduation_year" class="col-sm-4 control-label">graduation year</label>
                   <div class="col-sm-8">
                     {{ Form::select('graduation_year', array(
-                      'freshman' => 'Freshman',
-                      'junior' => 'Junior',
-                      'sophomore' => 'Sophomore',
-                      'senior' => 'Senior',), null,
+                      'Senior' => 'Senior',
+                      'Junior' => 'Junior',
+                      'Sophomore' => 'Sophomore',
+                      'Freshman' => 'Freshman',
+                      ), null,
                       array('class'=>'chosen-select chosen-transparent form-control')) }}
 
                   </div>
@@ -214,9 +215,10 @@
                     {{ Form::select('position', array(
                       ''  => 'Select Position', 
                       'A' => 'A - Attack',
+                      'M' => 'M - Midfield',
                       'D' => 'D - Defense (Long Stick Midfield)',
                       'G' => 'G - Goalie',
-                      'M' => 'M - Midfield',), null ,
+                      ), null ,
                       array('id' =>'positioin', 'class'=>'chosen-select chosen-transparent form-control')) }}
                   </div>
                 </div>
@@ -225,7 +227,11 @@
                     $player_registration_date = $player_registration_date->format('Y-m-d');
 
                     $payment_due_date = new DateTime();
-                    $payment_due_date->add(new DateInterval('P1M'));
+                    // add one month
+                    //$payment_due_date->add(new DateInterval('P1M'));
+                    
+                    //add 21 days
+                    date_add($payment_due_date, date_interval_create_from_date_string('21 days'));
                     $payment_due_date = $payment_due_date->format('Y-m-d');
                 ?>
 

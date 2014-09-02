@@ -351,10 +351,11 @@ $(document).ready(function(){
                   <label for="graduation_year" class="col-sm-4 control-label">graduation year</label>
                   <div class="col-sm-8">
                     {{ Form::select('graduation_year', array(
-                      'freshman' => 'Freshman',
-                      'junior' => 'Junior',
-                      'sophomore' => 'Sophomore',
-                      'senior' => 'Senior',), 'cribbb',
+                      'Senior' => 'Senior',
+                      'Junior' => 'Junior',
+                      'Sophomore' => 'Sophomore',
+                      'Freshman' => 'Freshman',
+                      ), $player->graduation_year,
                       array('class'=>'chosen-select chosen-transparent form-control')) }}
 
                   </div>
@@ -420,11 +421,11 @@ $(document).ready(function(){
                   <label for="position" class="col-sm-4 control-label">position *</label>
                   <div class="col-sm-8">
                     {{ Form::select('position', array(
-                      ''  => 'Please Select', 
                       'A' => 'A - ATTACK',
+                      'M' => 'M - MIDFIELD',
                       'D' => 'D - DEFENSE (Long Stick MIDFIELD)',
                       'G' => 'G - GOALIE',
-                      'M' => 'M - MIDFIELD',), $player->position,
+                      ), $player->position,
                       array('id' =>'positioin', 'class'=>'chosen-select chosen-transparent form-control',
                         'parsley-trigger' => 'change', 'parsley-required' => 'true', 'parsley-error-container' =>'position')) }}
                   </div>

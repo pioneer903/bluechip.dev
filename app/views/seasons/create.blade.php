@@ -58,8 +58,8 @@
 
                             {{ Form::select('season', array(
                             ''       => 'Please Select', 
-                            'summer' => 'Summer',
-                            'fall'   => 'Fall'), 'select', 
+                            'Summer' => 'Summer',
+                            'Fall'   => 'Fall'), 'select', 
                             array('id' => 'season', 'class' => 'chosen-select chosen-transparent form-control', 'parsley-trigger' => 'change', 'parsley-required' =>'true', 'parsley-error-container' =>'#season_select'))}}
 
                         </div>
