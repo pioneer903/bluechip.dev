@@ -1,0 +1,3 @@
+SELECT `first_name`, `last_name` FROM `players` WHERE `player_registration_date` = 0000-00-00;
+update `players` set `player_registration_date` = '2014-09-02' WHERE `player_registration_date` = 0000-00-00;
+update `players` set `payment_due_date` = '2014-10-20' WHERE `payment_due_date` = 0000-00-00;

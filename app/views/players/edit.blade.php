@@ -710,7 +710,7 @@ $(document).ready(function(){
                   <label for="comments" class="col-sm-4 control-label">additional comments </label>
                   <div class="col-sm-8">
                     {{ Form::textarea('comments', $player->comments,
-                     array('class' => 'form-control', 'id' => 'comments', 'placeholder' => 'Please indicate if any initial information was inforrect')) }}
+                     array('class' => 'form-control', 'id' => 'comments', 'placeholder' => 'Please indicate if any initial information was incorrect')) }}
                   </div>
                 </div>
 
