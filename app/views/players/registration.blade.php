@@ -143,7 +143,8 @@
                         <b><?php echo date('m/d/Y', $payment_due_date);  ?></b>, your spot will be forfeited and another player will be chosen to take your place. 
                         Please enclose your confirmation letter along with a check made payable to Maryland Lacrosse Academy Inc. 
                         and mailed to the following address (regular US mail only, do not send mail signature required): 
-                      </p>            
+                      </p>      
+                      <textarea>Some text here {{$player->first_name}} </textarea>      
                       
                       <p style="padding-left:40px;"> <br>
                       Nike Blue Chip Lacrosse Camp <br>

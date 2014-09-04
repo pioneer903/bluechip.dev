@@ -9,7 +9,8 @@
 		"laravelbook/ardent": "dev-master",
 		"thujohn/pdf": "dev-master",
 		"cangelis/l4pdf": "1.2.*",
-		"barryvdh/laravel-dompdf": "0.4.*"
+		"barryvdh/laravel-dompdf": "0.4.*", 
+		
 	},
 	"autoload": {
 		"classmap": [

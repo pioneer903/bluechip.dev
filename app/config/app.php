@@ -122,6 +122,7 @@ return array(
 		'Way\Generators\GeneratorsServiceProvider',
 		'Anouar\Fpdf\FpdfServiceProvider',
 		'Barryvdh\DomPDF\ServiceProvider',
+		
 	),
 
 	/*
