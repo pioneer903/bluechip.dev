@@ -25,6 +25,8 @@ Route::group(array('before' => 'auth|check_role'), function()
     Route::get('secret', 'HomeController@showSecret');
     Route::post('players/print', 'PlayersController@playerPrint');
     Route::resource('players', 'PlayersController');
+    Route::resource('pages', 'PagesController');
+    Route::resource('letters', 'LettersController');
     Route::resource('seasons', 'SeasonsController');
     Route::get('create', function(){
 		return View::make('home.create');
@@ -59,8 +61,6 @@ Route::get('link/{token}', 'PlayersController@link');
 
 Route::get('print_player/{id}', array('as' => 'print_player', 'uses'=> 'PlayersController@print_player', function($id){
 }));
-Route::get('letter/{id}', array('as' => 'letter', 'uses'=> 'PlayersController@letter', function($id){
-}));
 
 Route::get('save_pdf/{id}', array('as' => 'save_pdf', 'uses'=> 'PlayersController@save_pdf', function($id){
 }));
@@ -68,6 +68,9 @@ Route::get('save_pdf/{id}', array('as' => 'save_pdf', 'uses'=> 'PlayersControlle
 Route::get('confirmation/{id}', array('as' => 'confirmation', 'uses'=> 'PlayersController@confirmation', function($id){
 }));
 
-Event::listen('laravel.query', function ($sql){
-	var_dump($sql);
-});
+/** Content pages **/
+Route::get('letter', array('as' => 'letter', 'uses'=> 'PagesController@letter', function(){
+}));
+
+Route::get('test', array('as' => 'test', 'uses'=> 'PlayersController@test', function(){
+}));

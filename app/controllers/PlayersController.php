@@ -40,12 +40,18 @@ class PlayersController extends BaseController {
   public function create() {
     //route/users/create
     //create new player
+    $letters = Letter::orderBy('id', 'asc')->get();
+    $letters_array = array();
+    foreach ($letters as $l) {
+      $letters_array[$l->id] = $l->letter_title;
+    }
+
     $seasons = Season::orderBy('id', 'desc')->get();
     $seasons_array = array();
     foreach ($seasons as $s) {
       $seasons_array[$s->id] = $s->grad_year . ' ' . $s->season;
     }
-    return View::make('players.create', compact('seasons_array'));
+    return View::make('players.create', compact('seasons_array', 'letters_array'));
   }
 
   /**
@@ -82,6 +88,11 @@ class PlayersController extends BaseController {
       // $player->username = $input['username'];
       // $player->password = Hash::make($input['password']);
       // $player->password_confirmation = $input['password_confirmation'];
+      
+      $letter_id = $input['letter_id'];
+      $letter = Letter::find($letter_id);
+      $player->letter = $letter->letter_text;
+
       $player->first_name = $input['first_name'];
       $player->last_name = $input['last_name'];
       $player->email = $input['email'];
@@ -119,10 +130,13 @@ class PlayersController extends BaseController {
       //   ->with('token', $token);
       // Session::put('success', 'You created new player ' . $player->username . ' successfully.');
       $season = Season::where('id', '=', $player->season_id)->first();
+      
+
       return View::make('players.registration')
                       ->with('player', $player)
                       ->with('season', $season)
-                      ->with('token', $token);
+                      ->with('token', $token)
+                      ->with('letter', $letter);
       // return Redirect::to('/players/registration')->with('success', 'You created new player ' . $player->username . ' successfully. Link '. URL::to('link/'.$token));
     } else {
       return Redirect::to('players/create')
@@ -638,5 +652,10 @@ HTML;
       }
     }
   }
+
+  public function test(){
+    return View::make('players.test');
+  }
+
 
 }

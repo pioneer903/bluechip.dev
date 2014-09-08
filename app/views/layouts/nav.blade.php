@@ -13,6 +13,7 @@
                     <li style="float:left">{{ HTML::link('players', 'Manage Players')}} </li>
                     <li style="float:left">{{ HTML::link('players/create', 'Add new Player')}} </li>
                     <li style="float:left">{{ HTML::link('seasons/create', 'Add new season')}} </li>
+                    <li style="float:left">{{ HTML::link('letters', 'Invitation Letters')}} </li>
                     <li style="float:right">{{ HTML::link('logout', 'Logout') }}</li>
                     <li style="float:right" class='user'>Hello <b>{{ Auth::user()->first_name}}</b> </li>
                 @elseif((Auth::user()->role_id)==3)

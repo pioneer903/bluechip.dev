@@ -1,0 +1,8 @@
+Each player’s profile will be in a booklet given to the coaches in attendance. Upon arrival, each player will be provided with his own numbered reversible jersey, which will be listed in the coach’s booklet. Unfortunately, team requests cannot be honored.       </p>
+The cost of the <b>Nike Blue Chip Lacrosse Camp</b> is $500.00. This payment is <b>non-refundable (in the case of an injury, a 50% refund will be given to those who present a note from a physician before November 1). </b> If we do not receive your payment by <b><?php echo date('m/d/Y', $payment_due_date);  ?></b>, your spot will be forfeited and another player will be chosen to take your place. Please enclose your confirmation letter along with a check made payable to Maryland Lacrosse Academy Inc. and mailed to the following address (regular US mail only, do not send mail signature required): 
+
+p><br>
+If you have any questions please email me at sailinshoe3@comcast.net <br><br>
+Sincerely,<br> <br>
+Jake Reed<br>
+Nike Blue Chip Lacrosse Camp</p>

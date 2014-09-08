@@ -1,0 +1,1 @@
+C:\wamp\www\bluechip.dev\app/views/pages/index.blade.php

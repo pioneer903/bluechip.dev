@@ -197,6 +197,12 @@
                   </div>
                 </div>
                 <div class="form-group">
+                  <label for="" class="col-sm-4 control-label">Template</label>
+                  <div class="col-sm-8">
+                    {{ Form::select('letter_id', $letters_array, null, array('class'=>'chosen-select chosen-transparent form-control')) }}
+                  </div>
+                </div>
+                <div class="form-group">
                   <label for="graduation_year" class="col-sm-4 control-label">graduation year</label>
                   <div class="col-sm-8">
                     {{ Form::select('graduation_year', array(
@@ -206,7 +212,6 @@
                       'Freshman' => 'Freshman',
                       ), null,
                       array('class'=>'chosen-select chosen-transparent form-control')) }}
-
                   </div>
                 </div>
                 <div class="form-group">
