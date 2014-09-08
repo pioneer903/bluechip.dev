@@ -63,6 +63,17 @@ return array(
 		// 	'prefix'    => '',
 		// ),
 
+		// 'mysql' => array(
+		// 	'driver'    => 'mysql',
+		// 	'host'      => 'db542910857.db.1and1.com',
+		// 	'database'  => 'db542910857',
+		// 	'username'  => 'dbo542910857',
+		// 	'password'  => 'mAximum1/',
+		// 	'charset'   => 'utf8',
+		// 	'collation' => 'utf8_unicode_ci',
+		// 	'prefix'    => '',
+		// ),
+
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',

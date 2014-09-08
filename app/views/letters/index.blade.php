@@ -110,10 +110,7 @@
                                 <td>{{ $letter->letter_title }} </td>
                                 <td>{{ link_to_route('letters.show', 'View', array($letter->id), array('class' => 'btn btn-info'))}} </td>
                                 <td>{{ link_to_route('letters.edit', 'Edit', array($letter->id), array('class' => 'btn btn-info ')) }}</td>
-                                <!-- <td>{{ Form::open(array('method' =>'DELETE', 'route' => array('players.destroy', $letter->id))) }}
-                                    {{ Form::submit('Delete', array('class' => 'btn btn-danger', 'onclick'=>'confirm("confirm delete")')) }} 
-                                    {{ Form::close() }}</td> -->
-                                <td>{{Form::delete('players/'. $letter->id, 'Delete', array('class' => 'btn-delete delete-form'))}}</td> 
+                             	<td>{{Form::delete('players/'. $letter->id, 'Delete', array('class' => 'btn-delete delete-form'))}}</td> 
                                 <td class="player_id hidden">{{ $letter->id}} </td>
                             </tr>
                             @endforeach
