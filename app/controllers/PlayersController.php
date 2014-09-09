@@ -63,36 +63,17 @@ class PlayersController extends BaseController {
   public function store() {
     //route post
     // insert data into database
-    // return "Form submitted via store(). The name is ". Input::get('user_name');
+    
     $input = Input::all();
-    // DB::insert('insert into posts ( title, body) values(?,?)', array ($input['title'], $input['body']));
-    // DB::table('posts')->insert(array(
-    // 		'title' => $input['title'],
-    // 		'body'	=> $input['body']
-    // 	));
 
-
-
+    //Validate inputs against the rules in the /models/Player
     $v = Validator::make($input, Player::$rules, Player::$messages);
     if ($v->passes()) {
-      // DB::table('users')->insert(array(
-      // 	'first_name' => $input['first_name'],
-      // 	'last_name'	 => $input['last_name'],
-      // 	'birth_date' => $input['birth_date'],
-      // 	'height'	 => $input['height']
-      // ));
 
+      //Create new instance of a player
       $player = new Player;
-      // $player->birth_date = $input['birth_date'];
-      // $player->height = $input['height'];
-      // $player->username = $input['username'];
-      // $player->password = Hash::make($input['password']);
-      // $player->password_confirmation = $input['password_confirmation'];
-      
-      $letter_id = $input['letter_id'];
-      $letter = Letter::find($letter_id);
-      $player->letter = $letter->letter_text;
 
+      //Save all the inputs into the new player 
       $player->first_name = $input['first_name'];
       $player->last_name = $input['last_name'];
       $player->email = $input['email'];
@@ -111,6 +92,7 @@ class PlayersController extends BaseController {
       $player->payment_due_date = $input['payment_due_date'];
       $player->save();
 
+      //Create token for the new player
       $token = $player->last_name . Str::random(5);
       $ext = 0;
       while (Token::where('token', '=', $token)->count() > 0) {
@@ -131,18 +113,45 @@ class PlayersController extends BaseController {
       // Session::put('success', 'You created new player ' . $player->username . ' successfully.');
       $season = Season::where('id', '=', $player->season_id)->first();
       
+      //Add generated and merged letter to the Players table
+      $letter_id = $input['letter_id'];
+      $letter = Letter::find($letter_id);
+      $mergedLetter = new MergeCodes($player, $season, $token);
+      $player->letter = $mergedLetter->transform($letter->letter_text);
+      $player->save();
+      
 
       return View::make('players.registration')
                       ->with('player', $player)
                       ->with('season', $season)
                       ->with('token', $token)
                       ->with('letter', $letter);
-      // return Redirect::to('/players/registration')->with('success', 'You created new player ' . $player->username . ' successfully. Link '. URL::to('link/'.$token));
     } else {
       return Redirect::to('players/create')
                       ->withInput()
                       ->withErrors($v);
     }
+  }
+
+  public function create_token($id)
+  {
+    $player = Player::find($id);
+
+    //Create new token for the player
+    $token = $player->last_name . Str::random(5);
+    $ext = 0;
+    while (Token::where('token', '=', $token)->count() > 0) {
+      $token = $token . $ext;
+      $ext++;
+    }
+    $t = new Token();
+    $t->token = $token;
+    $t->player_id = $player->id;
+    $t->save();
+
+    return View::make('players/link')
+      ->with('token', $t)
+      ->with('player', $player);
   }
 
   /**
@@ -258,12 +267,12 @@ class PlayersController extends BaseController {
     $player->save();
   }
 
-  public function ajaxLetter() {
+  // public function ajaxLetter() {
 
-    $player = Player::find(Input::get('id'));
-    $player->letter = Input::get('letter');
-    $player->save();
-  }
+  //   $player = Player::find(Input::get('id'));
+  //   $player->letter = Input::get('letter');
+  //   $player->save();
+  // }
 
   public function ajaxCheckUsername(){
     $username = Input::get('username');

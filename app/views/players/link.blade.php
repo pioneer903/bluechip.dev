@@ -86,36 +86,23 @@
                   <!-- tile header -->
                   <div class="tile-header transparent non-printable">
                     <div class="row">
-                      <div class="col-md-2"><div class="btn btn-info"  onclick="window.print()">Print Letter</div></div>
-                      <div class="col-md-2"><div>{{ link_to_route('save_pdf', 'Save as PDF', array($player->id), array('class' => 'btn btn-info')) }}</div></div>
+                      <div class="col-md-2"><div class="btn btn-info"  onclick="window.print()">Print </div></div>
+                      
                     </div>
                     
-                    <!-- <div style=' margin-left:-15px; ' onclick="window.print()">{{ link_to_route('players.edit', 'Print letter', array($player->id), array('class' => 'btn btn-info')) }}</div> -->
-                   <!--  <form id="contactForm1">
-                      <input type="text" id="letter" name="letter" data-id = "<?php $player->id ?>"/>
-                      <button class="btn btn-info" id="saveLetter" type="submit">submit</button>
-                   
-                    </form> -->
                   </div>
                   <!-- /tile header -->
 
                   <!-- tile body -->
                   <div class="tile-body">
-                    
+                    <h1>Create unique link</h1>
+                    <hr>
+                    The new unique link for 
 
                     @if(isset($player))
-                    <?php
-                      $payment_due_date = strtotime($player->payment_due_date);
-
-                    ?> 
-
-                    <div id="letter_text">
-                      <!-- <div class="center small_logo"><img src="images/bluechip_logo.png" alt="logo" /></div> -->
-                      <?php 
-                        $mergedLetter = new MergeCodes($player, $season, $token);
-                        echo $mergedLetter->transform($letter->letter_text);
-                       ?>
-                    </div> 
+                      <strong>{{$player->first_name}} {{$player->last_name}}</strong> is created.
+                      <br><br>
+                      <strong>{{URL::to('link')}}/{{$token->token}} </strong>
                     @else
           						The Player is not selected
           					@endif	

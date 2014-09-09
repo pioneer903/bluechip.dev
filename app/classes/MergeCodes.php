@@ -19,6 +19,7 @@
     var $graduation_year;
     var $payment_due_date;
     var $token;
+    var $logo;
 
     public function __construct( $player, $season, $token) {
       
@@ -29,6 +30,7 @@
       $this->graduation_year = $player->graduation_year;
       $this->payment_due_date = $player->payment_due_date;
       $this->token = URL::to('link').'/'.$token;
+      $this->logo = '<img src="'.URL::to("images/bluechip_logo.png"). '" alt="logo"/>';
       
     }
 

@@ -90,6 +90,7 @@
 					<div style='float:right; display:inline; padding:10px;'>{{Form::delete('players/'. $player->id, 'Delete', array('class' => 'btn-delete delete-form'))}}</div>
 					<div style='float:right; display:inline; padding:10px;'>{{ link_to_route('players.edit', 'Edit player', array($player->id), array('class' => 'btn btn-info')) }}</div>
 					<div style='float:right; display:inline; padding:10px;'>{{ link_to_route('print_player', 'Print player', array($player->id), array('class' => 'btn btn-info')) }}</div>
+					<div style='float:right; display:inline; padding:10px;'>{{ link_to_route('create_token', 'Create Unique Link', array($player->id), array('class' => 'btn btn-info')) }}</div>
 
 				</div>
                   <!-- /tile header -->

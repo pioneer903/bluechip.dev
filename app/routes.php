@@ -62,6 +62,12 @@ Route::get('link/{token}', 'PlayersController@link');
 Route::get('print_player/{id}', array('as' => 'print_player', 'uses'=> 'PlayersController@print_player', function($id){
 }));
 
+Route::get('create_token/{id}', array('as' => 'create_token', 'uses'=> 'PlayersController@create_token', function($id){
+}));
+
+Route::get('link/{id}', array('as' => 'link', 'uses'=> 'PlayersController@link', function($id){
+}));
+
 Route::get('save_pdf/{id}', array('as' => 'save_pdf', 'uses'=> 'PlayersController@save_pdf', function($id){
 }));
 
