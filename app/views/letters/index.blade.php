@@ -81,6 +81,7 @@
                   <!-- tile header -->
                   <div class="tile-header transparent">
                     <h1>All Letters </h1>
+                    <div style="float:right">{{ HTML::link('letters/create', 'Add New Template', array('class' => 'btn btn-primary'))}} </div>
                    {{Form::open(array('url' => 'players/print', 'method' => 'POST','class'=>'print_all_players_form', 'target'=>"_blank"))}}
                    
                    {{Form::close()}}
