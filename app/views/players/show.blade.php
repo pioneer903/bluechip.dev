@@ -85,13 +85,19 @@
 
                   <!-- tile header -->
 				<div class="tile-header transparent">
+					<div class="row">
+						<div style='float:right; display:inline; padding:10px;'>{{Form::delete('players/'. $player->id, 'Delete', array('class' => 'btn-delete delete-form'))}}</div>
+						<div style='float:right; display:inline; padding:10px;'>{{ link_to_route('players.edit', 'Edit player', array($player->id), array('class' => 'btn btn-primary')) }}</div>
+						<div style='float:right; display:inline; padding:10px;'>{{ link_to_route('create_token', 'Create Unique Link', array($player->id), array('class' => 'btn btn-primary')) }}</div>
+						<div style='float:right; display:inline; padding:10px;'><a id='print' class="btn btn-primary " style="margin-left: 20px;">Print</a></div>
+	                    {{Form::open(array('url' => 'players/print', 'method' => 'POST','class'=>'print_all_players_form', 'target'=>"_blank"))}}
+	                    {{Form::close()}}
+	                    <table  class="table table-datatable table-custom " id="inlineEditDataTable">
+	                    	<tr class="row_selected"  data-player="{{$player->id}}"></tr>
+						</table>
+						
+					</div>
 					<h1 class="capitalize"> {{$season->grad_year}} {{$season->season}} Nike Blue Chip {{ $player->graduation_year}} Camp</h1>
-
-					<div style='float:right; display:inline; padding:10px;'>{{Form::delete('players/'. $player->id, 'Delete', array('class' => 'btn-delete delete-form'))}}</div>
-					<div style='float:right; display:inline; padding:10px;'>{{ link_to_route('players.edit', 'Edit player', array($player->id), array('class' => 'btn btn-info')) }}</div>
-					<div style='float:right; display:inline; padding:10px;'>{{ link_to_route('print_player', 'Print player', array($player->id), array('class' => 'btn btn-info')) }}</div>
-					<div style='float:right; display:inline; padding:10px;'>{{ link_to_route('create_token', 'Create Unique Link', array($player->id), array('class' => 'btn btn-info')) }}</div>
-
 				</div>
                   <!-- /tile header -->
 
@@ -159,6 +165,10 @@
 											?>
 										</td>
 
+									</tr>
+									<tr>
+										<td>Paid Amount</td>
+										<td>${{$player->paid_amount}} </td>
 									</tr>
 									<tr>
 										<td>Height</td>
@@ -425,206 +435,6 @@
 
 
 				
-                    <!-- <div class="tab-content">
-                      
-                      <div class="tab-pane" id="tab1">
-                        <table class="table table-striped table-bordered table-hover">
-							<tr>
-								<th colspan='2'><h3>Personal Information</h3></th>
-							</tr>
-							<tr>
-								<td  style="width:30%">First Name</td>
-								<td>{{ $player->first_name }} </td>
-							</tr>
-							<tr>
-								<td>Last Name</td>
-								<td>{{ $player->last_name }} </td>
-							</tr>
-							<tr>
-								<td>Email</td>
-								<td><a href="mailto:{{ $player->email }}?Subject=Contact%20from%20Blue%20Chip" target="_top">{{ $player->email }} </a></td>
-							</tr>
-							<tr>
-								<td>Phone</td>
-								<td>{{ $player->phone}} </td>
-							</tr>
-							<tr>
-								<td>Street Address</td>
-								<td>{{ $player->street}} </td>
-							</tr>
-							<tr>
-								<td>City</td>
-								<td>{{ $player->city}} </td>
-							</tr>
-							<tr>
-								<td>State</td>
-								<td>{{ $player->state}} </td>
-							</tr>
-							<tr>
-								<td>Zip Code</td>
-								<td>{{ $player->zip}} </td>
-							</tr>
-							<tr>
-								<td>Date of Birth</td>
-								<td>{{ $player->birth_date }} </td>
-							</tr>
-							<tr>
-								<td>Height</td>
-								<td>{{ $player->height }} </td>
-							</tr>
-							<tr>
-								<td>Weight</td>
-								<td>{{ $player->weight}} </td>
-							</tr>
-
-							<tr>
-								<th colspan='2'><h3>Parents Information</h3></th>
-							</tr>
-							<tr>
-								<td>Parent 1 Name</td>
-								<td>{{ $player->parent1_name}} </td>
-							</tr>
-							<tr>
-								<td>Parent 1 Email</td>
-								<td><a href="mailto:{{ $player->parent1_email }}?Subject=Contact%20from%20Blue%20Chip" target="_top">{{ $player->parent1_email}} </a></td>
-							</tr>
-							<tr>
-								<td>Parent 2 Name</td>
-								<td>{{ $player->parent2_name}} </td>
-							</tr>
-							<tr>
-								<td>Parent 2 Name</td>
-								<td><a href="mailto:{{ $player->parent2_email }}?Subject=Contact%20from%20Blue%20Chip" target="_top">{{ $player->parent2_email}} </a></td>
-							</tr>
-							
-							<tr>
-								<th colspan='2'><h3> School and Team Information</h3></th>
-							</tr>
-							<tr>
-								<td>Graduation Year</td>
-								<td>{{ $season->grad_year }} </td>
-							</tr>
-							<tr>
-								<td>Season</td>
-								<td>{{ $season->season}} </td>
-							</tr>
-							<tr>
-								<td>School Name</td>
-								<td>{{ $player->school_name}} </td>
-							</tr>
-							<tr>
-								<td>School Coach</td>
-								<td>{{ $player->school_coach}} </td>
-							</tr>
-							<tr>
-								<td>School Coach Phone</td>
-								<td>{{ $player->school_coach_phone}} </td>
-							</tr>
-							<tr>
-								<td>Club Team</td>
-								<td>{{ $player->club_team}} </td>
-							</tr>
-							<tr>
-								<td>Club Coach</td>
-								<td>{{ $player->club_coach}} </td>
-							</tr>
-							<tr>
-								<td>Club Coach Phone</td>
-								<td>{{ $player->club_coach_phone}} </td>
-							</tr>
-							<tr>
-								<td>GPA</td>
-								<td>{{ $player->gpa}} </td>
-							</tr>
-							<tr>
-								<td>PSAT</td>
-								<td>{{ $player->psat}} </td>
-							</tr>
-							<tr>
-								<td>SAT/ACT</td>
-								<td>{{ $player->sat_act}} </td>
-							</tr>
-
-							<tr>
-								<th colspan='2'><h3> Lacrosse Information</h3></th>
-							</tr>
-							<tr>
-								<td>Position</td>
-								<td>{{ $player->position }} </td>
-							</tr>
-							<tr>
-								<td>Hand</td>
-								<td>{{ $player->hand }} </td>
-							</tr>
-							<tr>
-								<td>Faceoff</td>
-								<td>{{ $player->faceoff }} </td>
-							</tr>
-							<tr>
-								<td>LSM</td>
-								<td>{{ $player->lsm }} </td>
-							</tr>
-							<tr>
-								<td>Lacrosse Honors</td>
-								<td>{{ $player->lacrosse_honors }} </td>
-							</tr>
-							<tr>
-								<td>Other Sports</td>
-								<td>{{ $player->other_sports }} </td>
-							</tr>
-							<tr>
-								<td>I have committed to</td>
-								<td>{{ $player->committed_to}} </td>
-							</tr>
-						</table>
-                      </div>
-
-                      <div class="tab-pane" id="tab2">
-                      	<table class="table table-striped table-bordered table-hover">
-                      		<tr>
-								<th colspan='2'><h3> Medical Information</h3></th>
-							</tr>
-							<tr>
-								<td>Insurance Company Name</td>
-								<td>{{ $player->insurance_company}} </td>
-							</tr>
-							<tr>
-								<td>Insurance Policy</td>
-								<td>{{ $player->insurance_policy }} </td>
-							</tr>
-							<tr>
-								<td>Insurance Date</td>
-								<td>{{ $player->insurance_date }} </td>
-							</tr>
-							<tr>
-								<td>Player's Signature</td>
-								<td>{{ $player->player_signature }} </td>
-							</tr>
-							<tr>
-								<td>Parent's Signature</td>
-								<td>{{ $player->parent_signature }} </td>
-							</tr>
-							<tr>
-								<td>Emergency Phone #1 </td>
-								<td>{{ $player->emergency_phone1 }} </td>
-							</tr>
-							<tr>
-								<td>Emergency Phone #2 </td>
-								<td>{{ $player->emergency_phone2 }} </td>
-							</tr>
-							<tr>
-								<td>Medical Conditions</td>
-								<td>{{ $player->medical_conditions}} </td>
-							</tr>
-						</table>
-                       
-                      </div>
-                      
-                      <div class="tab-pane" id="tab3">
-                      	
-                      </div>
-
-                    </div> -->
 
                   </div>
                   <!-- /tile body -->
@@ -744,7 +554,14 @@
       $('.tabdrop').tabdrop({text: '<i class="fa fa-th-list"></i>'});
       
       
-    })
+    });
+	$("#print").click(function(){
+		$('#inlineEditDataTable tr.row_selected').each(function() {
+			$('form.print_all_players_form').append('<input type="hidden" name="players[]" value="'+$(this).attr('data-player')+'" />');
+		});
+		$('form.print_all_players_form').submit();
+	});
+
       
     </script>
 

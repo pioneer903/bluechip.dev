@@ -428,9 +428,7 @@ HTML;
     foreach (Player::whereIn('id', Input::get('players'))->get() as $player) {
       $season = Season::where('id', '=', $player->season_id)->first();
       
-      $html .= '<style>
-                  </style>
-                <div class="playerPage">
+      $html .= '<div class="playerPage">
                   
                   <table id="players_information">
                     <tr>
@@ -576,10 +574,20 @@ HTML;
                       <td colspan="4" class="bold">' . $player->committed_to. ' </td>
                     </tr>
                   </table>
-
+                </div>
+                
+                <div class="playerPage">
                   <table>
+
                     <tr>
                       <th colspan="2"><h3> Medical Information</h3></th>
+                    </tr>
+                    <tr>
+                      <td>First Name</td>
+                      <td  class="bold">' . $player->first_name . ' </td>
+                      <td class="divider"></td>
+                      <td>Last Name</td>
+                      <td class="bold">' . $player->last_name . ' </td>
                     </tr>
                     <tr>
                       <td>Health Insurance Company Name</td>
@@ -622,9 +630,10 @@ HTML;
                       <td>Medical Conditions</td>
                       <td class="bold">' . $player->medical_conditions. ' </td>
                     </tr>
-                  </table>  
+                  </table> 
+                </div>
 
-                </div>';
+                ';
     }
 
     // return PDF::loadHTML($html)->download('selected.pdf');

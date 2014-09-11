@@ -35,7 +35,7 @@ Route::filter('auth', function() {
   if (Auth::guest()) {
     return Redirect::guest('login');
   } else {
-    $admin_list = array('players', 'players/create', 'seasons', 'seasons/create', 'print_player/{players}');
+    $admin_list = array('players', 'players/create', 'seasons', 'seasons/create');
 //          dd(Route::current());
     if (Route::current()->uri() == 'players/{players}/edit' and  Auth::user()->role_id != 1) {
       $parameters = Route::current()->parameters();

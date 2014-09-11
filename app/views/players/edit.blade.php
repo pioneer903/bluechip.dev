@@ -290,6 +290,20 @@ $(document).ready(function(){
                      array('class' => 'form-control ','readonly')) }}
                   </div>
                 </div>
+                <div class="form-group">
+                  <label for="paid_amount" class="col-sm-4 control-label">paid amount</label>
+                  @if ((Auth::user()->role_id == 1))
+                    <div class="col-sm-8">
+                      {{ Form::text('paid_amount', $player->paid_amount, array( 'class' => 'form-control', 
+                        'parsley-trigger' => 'change', 'parsley-required' => 'true', 'parsley-minlength' => '2', 'parsley-validation-minlength' => '1')) }}
+                    </div>
+                  @else
+                    <div class="col-sm-8">
+                      {{ Form::text('paid_amount', $player->paid_amount, array( 'readonly','class' => 'form-control', 
+                        'parsley-trigger' => 'change', 'parsley-required' => 'true', 'parsley-minlength' => '2', 'parsley-validation-minlength' => '1')) }}
+                    </div>
+                  @endif 
+                </div>
 
         
                 <div class="form-group">

@@ -86,7 +86,7 @@
                   <!-- tile header -->
                   <div class="tile-header transparent non-printable">
                     <div class="row">
-                      <div class="col-md-2"><div class="btn btn-info"  onclick="window.print()">Print </div></div>
+                      <div class="col-md-2"><div class="btn btn-primary"  onclick="window.print()">Print </div></div>
                       
                     </div>
                     

@@ -60,10 +60,12 @@
         num_rows = $('#inlineEditDataTable tr.row_selected').length;
         if(num_rows > 0){
           $('#email').removeClass('disabled');
-          console.log(num_rows);
+          $('#print').removeClass('disabled');
+          
         }else{
           $('#email').addClass('disabled');
-          console.log(num_rows);
+          $('#print').addClass('disabled');
+          
         }
 
         // FadeIn/Out delete rows button
@@ -94,9 +96,11 @@
           num_rows = $('#inlineEditDataTable tr.row_selected').length;
           if(num_rows > 0){
             $('#email').removeClass('disabled');
+            $('#print').removeClass('disabled');
             
           }else{
             $('#email').addClass('disabled');
+            $('#print').addClass('disabled');
             
           }
 
@@ -144,7 +148,7 @@
       });
 
       $("#print").click(function(){
-
+        console.log('test');
         $('#inlineEditDataTable tr.row_selected').each(function() {
           $('form.print_all_players_form').append('<input type="hidden" name="players[]" value="'+$(this).attr('data-player')+'" />');
           
