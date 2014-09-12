@@ -122,6 +122,7 @@ return array(
 		'Way\Generators\GeneratorsServiceProvider',
 		'Anouar\Fpdf\FpdfServiceProvider',
 		'Barryvdh\DomPDF\ServiceProvider',
+                'Bllim\Datatables\DatatablesServiceProvider',
 		
 	),
 
@@ -190,6 +191,7 @@ return array(
 		'View'            => 'Illuminate\Support\Facades\View',
 		'PDF' 			  => 'Barryvdh\DomPDF\Facade',
 		'Fpdf'  		  => 'Anouar\Fpdf\Facades\Fpdf',
+                'Datatables'      => 'Bllim\Datatables\Facade\Datatables',
 
 	),
 

@@ -10,7 +10,7 @@
 		"thujohn/pdf": "dev-master",
 		"cangelis/l4pdf": "1.2.*",
 		"barryvdh/laravel-dompdf": "0.4.*", 
-		
+		 "bllim/datatables": "*"
 	},
 	"autoload": {
 		"classmap": [

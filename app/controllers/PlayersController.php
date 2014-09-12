@@ -63,7 +63,7 @@ class PlayersController extends BaseController {
   public function store() {
     //route post
     // insert data into database
-    
+
     $input = Input::all();
 
     //Validate inputs against the rules in the /models/Player
@@ -112,14 +112,14 @@ class PlayersController extends BaseController {
       //   ->with('token', $token);
       // Session::put('success', 'You created new player ' . $player->username . ' successfully.');
       $season = Season::where('id', '=', $player->season_id)->first();
-      
+
       //Add generated and merged letter to the Players table
       $letter_id = $input['letter_id'];
       $letter = Letter::find($letter_id);
       $mergedLetter = new MergeCodes($player, $season, $token);
       $player->letter = $mergedLetter->transform($letter->letter_text);
       $player->save();
-      
+
 
       return View::make('players.registration')
                       ->with('player', $player)
@@ -133,8 +133,7 @@ class PlayersController extends BaseController {
     }
   }
 
-  public function create_token($id)
-  {
+  public function create_token($id) {
     $player = Player::find($id);
 
     //Create new token for the player
@@ -150,8 +149,8 @@ class PlayersController extends BaseController {
     $t->save();
 
     return View::make('players/link')
-      ->with('token', $t)
-      ->with('player', $player);
+                    ->with('token', $t)
+                    ->with('player', $player);
   }
 
   /**
@@ -268,61 +267,41 @@ class PlayersController extends BaseController {
   }
 
   // public function ajaxLetter() {
-
   //   $player = Player::find(Input::get('id'));
   //   $player->letter = Input::get('letter');
   //   $player->save();
   // }
 
-  public function ajaxCheckUsername(){
+  public function ajaxCheckUsername() {
     $username = Input::get('username');
     $user = User::where('username', '=', $username)->count();
-    if($user>0){
+    if ($user > 0) {
       echo 0;
-    }
-    else{
+    } else {
       echo 1;
     }
   }
 
-  public function deferLoading(){
-    // DB table to use
-    $table = 'players';
-     
-    // Table's primary key
-    $primaryKey = 'id';
-     
-    // Array of database columns which should be read and sent back to DataTables.
-    // The `db` parameter represents the column name in the database, while the `dt`
-    // parameter represents the DataTables column identifier. In this case simple
-    // indexes
-    $columns = array(
-        array( 'db' => 'first_name', 'dt' => 0 ),
-        array( 'db' => 'last_name',  'dt' => 1 ),
-        array( 'db' => 'phone',   'dt' => 2 ),
-        array( 'db' => 'email',     'dt' => 3 ),
-        array( 'db' => 'graduation_year',     'dt' => 3 )        
-    );
-     
-    // SQL server connection information
-    $sql_details = array(
-        'user' => 'root',
-        'pass' => '',
-        'db'   => 'bluechip',
-        'host' => 'localhost'
-    );
-     
-     
-    /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-     * If you just want to use the basic configuration for DataTables with PHP
-     * server-side, there is no need to edit below this line.
-     */
-     
-    require( 'ssp.class.php' );
-     
-    echo json_encode(
-        SSP::simple( $_GET, $sql_details, $table, $primaryKey, $columns )
-    );
+  public function deferLoading() {
+    Input::merge(array('iDisplayStart' => !empty($data['start']) ? $data['start'] : 0,
+        'iDisplayLength' => !empty($data['length']) ? $data['length'] : null,
+        'sSearch' => !empty($data['search']['value']) ? trim($data['search']['value']) : null));
+
+    if (!empty($data['order']) && is_array($data['order'])) {
+      Input::merge(array('iSortingCols' => count($data['order'])));
+      foreach ($data['order'] as $oKey => $oVal) {
+        Input::merge(array('iSortCol_' . $oKey => !empty($oVal['column']) ? $oVal['column'] : null,
+            'sSortDir_' . $oKey => !empty($oVal['dir']) ? $oVal['dir'] : null));
+      }
+    }
+
+    if (!empty($data['columns']) && is_array($data['columns'])) {
+      foreach ($data['columns'] as $cKey => $cVal) {
+        Input::merge(array('bSortable_' . $cKey => !empty($cVal['orderable']) ? $cVal['orderable'] : null));
+      }
+    }
+    $players = Player::select(array('first_name', 'last_name', 'phone', 'email', 'graduation_year', 'graduation_year', 'position', 'season_id', 'gpa', 'psat', 'paid', 'school_name', 'medical_conditions'));
+    return \Bllim\Datatables\Datatables::of($players)->make();
   }
 
   public function link($token) {
@@ -427,7 +406,7 @@ HTML;
 
     foreach (Player::whereIn('id', Input::get('players'))->get() as $player) {
       $season = Season::where('id', '=', $player->season_id)->first();
-      
+
       $html .= '<div class="playerPage">
                   
                   <table id="players_information">
@@ -446,25 +425,25 @@ HTML;
                       <td class="bold"><a href="mailto:' . $player->email . '?Subject=Contact%20from%20Blue%20Chip" target="_top">' . $player->email . ' </a></td>
                       <td class="divider"></td>
                       <td>Phone</td>
-                      <td class="bold">' . $player->phone. ' </td>
+                      <td class="bold">' . $player->phone . ' </td>
                     </tr>
                     <tr>
                       <td>Street Address</td>
-                      <td class="bold">' . $player->street. ' </td>
+                      <td class="bold">' . $player->street . ' </td>
                       <td></td>
                       <td>City</td>
-                      <td class="bold">' . $player->city. ' </td>
+                      <td class="bold">' . $player->city . ' </td>
                     </tr>
                     <tr>
                       <td>State</td>
-                      <td class="bold">' . $player->state. ' </td>
+                      <td class="bold">' . $player->state . ' </td>
                       <td></td>
                       <td>Zip Code</td>
-                      <td class="bold">' . $player->zip. ' </td>
+                      <td class="bold">' . $player->zip . ' </td>
                     </tr>
                     <tr>
                       <td>Date of Birth</td>
-                      <td class="bold">'. date("m/d/Y", strtotime($player->birth_date)) .'</td>
+                      <td class="bold">' . date("m/d/Y", strtotime($player->birth_date)) . '</td>
                       <td></td>
                       <td></td>
                     </tr>
@@ -473,7 +452,7 @@ HTML;
                       <td class="bold">' . $player->height . ' </td>
                       <td></td>
                       <td>Weight</td>
-                      <td class="bold">' . $player->weight. ' </td>
+                      <td class="bold">' . $player->weight . ' </td>
                     </tr>
 
                     <tr>
@@ -481,17 +460,17 @@ HTML;
                     </tr>
                     <tr>
                       <td>Parent/Guardian 1: Name</td>
-                      <td class="bold">' . $player->parent1_name. ' </td>
+                      <td class="bold">' . $player->parent1_name . ' </td>
                       <td></td>
                       <td>Email</td>
-                      <td><a href="mailto:' . $player->parent1_email . '?Subject=Contact%20from%20Blue%20Chip" target="_top">' . $player->parent1_email. ' </a></td>
+                      <td><a href="mailto:' . $player->parent1_email . '?Subject=Contact%20from%20Blue%20Chip" target="_top">' . $player->parent1_email . ' </a></td>
                     </tr>
                     <tr>
                       <td>Parent/Guardian 2: Name</td>
-                      <td class="bold">' . $player->parent2_name. ' </td>
+                      <td class="bold">' . $player->parent2_name . ' </td>
                       <td></td>
                       <td> Email</td>
-                      <td><a href="mailto:' . $player->parent2_email . '?Subject=Contact%20from%20Blue%20Chip" target="_top">' . $player->parent2_email. ' </a></td>
+                      <td><a href="mailto:' . $player->parent2_email . '?Subject=Contact%20from%20Blue%20Chip" target="_top">' . $player->parent2_email . ' </a></td>
                     </tr>
                   </table>
 
@@ -502,44 +481,44 @@ HTML;
                     </tr>
                     <tr>
                       <td>Camp Year and Season</td>
-                      <td class="bold capitalize" colspan="3">' . $season->grad_year  . ' ' . $season->season . '</td>
+                      <td class="bold capitalize" colspan="3">' . $season->grad_year . ' ' . $season->season . '</td>
                     </tr>
                     
                     <tr>
                       <td>Graduation year</td>
-                      <td class="bold capitalize">' . $player->graduation_year. ' </td>
+                      <td class="bold capitalize">' . $player->graduation_year . ' </td>
                       <td></td>
                       <td>School Name</td>
-                      <td class="bold">' . $player->school_name. ' </td>
+                      <td class="bold">' . $player->school_name . ' </td>
                     </tr>
                     <tr>
                       <td>School Coach</td>
-                      <td class="bold">' . $player->school_coach. ' </td>
+                      <td class="bold">' . $player->school_coach . ' </td>
                       <td></td>
                       <td>School Coach Phone</td>
-                      <td class="bold">' . $player->school_coach_phone. ' </td>
+                      <td class="bold">' . $player->school_coach_phone . ' </td>
                     </tr>
                     <tr>
                       <td>Club Team</td>
-                      <td class="bold">' . $player->club_team. ' </td>
+                      <td class="bold">' . $player->club_team . ' </td>
                       <td></td>
                       <td>Club Coach</td>
-                      <td class="bold">' . $player->club_coach. ' </td>
+                      <td class="bold">' . $player->club_coach . ' </td>
                     </tr>
                     <tr>
                       <td>Club Coach Phone</td>
-                      <td class="bold">' . $player->club_coach_phone. ' </td>
+                      <td class="bold">' . $player->club_coach_phone . ' </td>
                       <td></td>
                       <td>GPA</td>
-                      <td class="bold">' . $player->gpa. ' </td>
+                      <td class="bold">' . $player->gpa . ' </td>
                     </tr>
                    
                     <tr>
                       <td>PSAT</td>
-                      <td class="bold">' . $player->psat. ' </td>
+                      <td class="bold">' . $player->psat . ' </td>
                       <td></td>
                       <td>SAT/ACT</td>
-                      <td class="bold">' . $player->sat_act. ' </td>
+                      <td class="bold">' . $player->sat_act . ' </td>
                     
                     </tr>
                   </table>
@@ -571,7 +550,7 @@ HTML;
                     </tr>
                     <tr>
                       <td>I have committed to</td>
-                      <td colspan="4" class="bold">' . $player->committed_to. ' </td>
+                      <td colspan="4" class="bold">' . $player->committed_to . ' </td>
                     </tr>
                   </table>
                 </div>
@@ -591,7 +570,7 @@ HTML;
                     </tr>
                     <tr>
                       <td>Health Insurance Company Name</td>
-                      <td class="bold">' . $player->insurance_company. ' </td>
+                      <td class="bold">' . $player->insurance_company . ' </td>
                     </tr>
                     <tr>
                       <td>Health Insurance Policy</td>
@@ -599,7 +578,7 @@ HTML;
                     </tr>
                     <tr>
                       <td>Health Insurance Effective Date</td>
-                      <td class="bold">'. date("m/d/Y", strtotime($player->insurance_date)). '</td>
+                      <td class="bold">' . date("m/d/Y", strtotime($player->insurance_date)) . '</td>
                     </tr>
                     <tr>
                       <td>Player Signature</td>
@@ -607,7 +586,7 @@ HTML;
                     </tr>
                     <tr>
                       <td>Player Signature Date</td>
-                      <td class="bold">' . date("m/d/Y", strtotime($player->player_signature_date_medical)). '</td>
+                      <td class="bold">' . date("m/d/Y", strtotime($player->player_signature_date_medical)) . '</td>
                     </tr>
                     <tr>
                       <td>Parent/Guardian Signature</td>
@@ -615,7 +594,7 @@ HTML;
                     </tr>
                     <tr>
                       <td>Parent/Guardian Signature Date</td>
-                      <td class="bold">' . date("m/d/Y", strtotime($player->parent_signature_date_medical)). '</td>
+                      <td class="bold">' . date("m/d/Y", strtotime($player->parent_signature_date_medical)) . '</td>
 
                     </tr>
                     <tr>
@@ -628,7 +607,7 @@ HTML;
                     </tr>
                     <tr>
                       <td>Medical Conditions</td>
-                      <td class="bold">' . $player->medical_conditions. ' </td>
+                      <td class="bold">' . $player->medical_conditions . ' </td>
                     </tr>
                   </table> 
                 </div>
@@ -637,8 +616,7 @@ HTML;
     }
 
     // return PDF::loadHTML($html)->download('selected.pdf');
-    return PDF::loadHTML($html)->stream('selected-players-'. date('j/F/Y h:i:s A').'pdf');
-    
+    return PDF::loadHTML($html)->stream('selected-players-' . date('j/F/Y h:i:s A') . 'pdf');
   }
 
   public function confirmation($id) {
@@ -671,9 +649,8 @@ HTML;
     }
   }
 
-  public function test(){
+  public function test() {
     return View::make('players.test');
   }
-
 
 }

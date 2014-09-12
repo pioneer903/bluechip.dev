@@ -42,5 +42,6 @@ return array(
     'CanGelis\\PDF' => array($vendorDir . '/cangelis/pdf/src'),
     'CanGelis\\L4pdf' => array($vendorDir . '/cangelis/l4pdf/src'),
     'Boris' => array($vendorDir . '/d11wtq/boris/lib'),
+    'Bllim\\Datatables' => array($vendorDir . '/bllim/datatables/src'),
     'Anouar\\Fpdf' => array($vendorDir . '/anouar/fpdf/src'),
 );

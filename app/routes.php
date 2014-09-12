@@ -51,7 +51,7 @@ Route::get('thanks', 'HomeController@thanks');
 Route::post('ajax', 'PlayersController@ajax');
 Route::post('ajaxLetter', 'PlayersController@ajaxLetter');
 Route::post('ajaxCheckUsername', 'PlayersController@ajaxCheckUsername');
-Route::post('deferLoading', 'PlayersController@deferLoading');
+Route::get('deferLoading', 'PlayersController@deferLoading');
 Route::post('players/password', array('as'=>'players.password','uses'=>'PlayersController@password'));
 
 Route::post('email', 'PlayersController@email');

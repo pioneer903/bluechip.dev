@@ -111,8 +111,10 @@
       var oTable02 = $('#inlineEditDataTable').dataTable({
         "processing": true,
         "serverSide": true,
-        "ajax": "{{URL::to('players/deferLoading')}}",
-        "deferLoading": true,
+        "ajax": {
+          'url':"{{URL::to('deferLoading')}}"
+        },
+//        "deferLoading": true,
         "sDom":
           "R<'row'<'col-md-6'l><'col-md-6'f>r>"+
           "t"+

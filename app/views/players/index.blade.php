@@ -111,7 +111,7 @@
                             <th class="hidden" ></th>
                           </tr>
                         </thead>
-                        <tbody>
+<!--                        <tbody>
                           @foreach($seasons as $season)
                           <?php  $player = $season->players()->get();
                               $grad_year= $season->grad_year;
@@ -134,7 +134,7 @@
                                   </tr>
                                   @endforeach
                           @endforeach
-                        </tbody>
+                        </tbody>-->
                       </table>
                     </div>
                     
