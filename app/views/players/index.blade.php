@@ -15,6 +15,19 @@
        
       
         // } );
+      function ConfirmDelete()
+          {
+            var txt;
+            var r = confirm("Are you sure you want to delete this player?");
+            if (r == true) {
+                txt = "You pressed OK!";
+                return true;
+            } else {
+                txt = "You pressed Cancel!";
+                return false;
+            }
+            document.getElementById("demo").innerHTML = txt;
+          }
         
         $(document).ready(function(){
           $('.paid').click(function(){
@@ -36,15 +49,37 @@
               }
             })
           })
-        })
-        
-        $(document).on('submit', '.delete-form', function(){
-            return confirm('Are you sure you want to delete this player?');
-            
         });
+         
+        $(document).on("click", "[data-method]", function(e) {
+          // e.preventDefault();
+          
+          if(ConfirmDelete() == true){
+            $.ajax({
+                url: $(this).attr('href'),
+                type: "DELETE",
+                data: $(this).attr('data-id'),
+                success: function(data) {
+                     console.log("success");
+                },
+                error: function(){
+                  console.log('nothing happened')
+                }
+              });//ajax
+          }else{
+            return false;
+          }
+
+
+        })//document
+        
+        // $(document).on('submit', '.delete-form', function(){
+        //     return confirm('Are you sure you want to delete this player?');
+            
+        // });
     </script>
  
-
+<h1 id="demo"></h1>
     <!-- Preloader -->
     <div class="mask"><div id="loader"></div></div>
     <!--/Preloader -->
@@ -108,7 +143,7 @@
                             <th>View</th>
                             <th>Edit</th>
                             <th>Delete</th>
-                            <th class="hidden" ></th>
+                            <!-- <th class="hidden" ></th> -->
                           </tr>
                         </thead>
 <!--                        <tbody>

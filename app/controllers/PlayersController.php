@@ -300,10 +300,18 @@ class PlayersController extends BaseController {
         Input::merge(array('bSortable_' . $cKey => !empty($cVal['orderable']) ? $cVal['orderable'] : null));
       }
     }
-    $players = Player::select(array('first_name', 'last_name', 'phone', 'email', 'graduation_year', 'graduation_year', 'position', 'season_id', 'gpa', 'psat', 'paid', 'school_name', 'medical_conditions'));
-    return \Bllim\Datatables\Datatables::of($players)->make();
+    $players = Player::select(array('first_name', 'last_name', 'phone', 'email', 'graduation_year', 'season_id', 'position',  'paid',  'id'));
+    return \Bllim\Datatables\Datatables::of($players)
+        ->add_column('Edit', '<a href="{{ URL::route( \'players.edit\', array( $id)) }}" class=\'btn btn-info\'>edit</a>')
+        ->add_column('Delete', '<button href="{{ URL::to(\'players\', array($id) ) }}" data-player="1032" class=\'btn btn-danger\' data-method=\'delete\' >delete</button>')  // ->add_column('Delete', '<a Onclick="ConfirmDelete()"  href="{{ URL::route( \'players/\', array($id) ) }}" class=\'btn btn-danger\'>delete</a>')
+
+        // ->edit_column('')
+        ->make();
   }
 
+
+
+  /* Generates new unique link for the player */
   public function link($token) {
 
     if (Token::where('token', '=', $token)->count() > 0) {

@@ -1,0 +1,1 @@
+SELECT `players`.`id` `players.id`,`tokens`.`player_id` `tokens.player_id`, `first_name`, `last_name`, `token` FROM `players` right join `tokens` on `players`.`id` = `tokens`.`player_id` order by `tokens`.`player_id` desc limit 1000;
